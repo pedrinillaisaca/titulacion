@@ -1,5 +1,7 @@
 {
   "name": "Tesis",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
