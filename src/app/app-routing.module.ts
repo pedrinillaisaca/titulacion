@@ -41,6 +41,10 @@ const routes: Routes = [
     path: 'register-waterboard',
     loadChildren: () => import('./paginas/register-waterboard/register-waterboard.module').then( m => m.RegisterWaterboardPageModule),
     canActivate:[IsLoginGuard]
+  },
+  {
+    path: 'galery',
+    loadChildren: () => import('./paginas/galery/galery.module').then( m => m.GaleryPageModule)
   }
 ];
 

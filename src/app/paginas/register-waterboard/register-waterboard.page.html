@@ -7,24 +7,25 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content >
-  <form  #form="ngForm" (ngSubmit)="registro(form)">
+  <form  #form="ngForm" (ngSubmit)="regWaterBoard(form)">
     <ion-grid>
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div text-center>
-            <h3>registro datos Agua</h3>
+            <h3>registro junta de  Agua</h3>
           </div>
           <div padding>       
             <ion-item>
-              <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+              <ion-input name="name" type="name"  [(ngModel)]='waterboard.nombre' required></ion-input>
             </ion-item>
-            <ion-item>
+            <!-- <ion-item>
               <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
             </ion-item>
             <ion-item>
               <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
-            </ion-item>
+            </ion-item> -->
           </div>
           <div padding>
             <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>            
@@ -34,3 +35,6 @@
     </ion-grid>
   </form>
 </ion-content>
+
+
+  

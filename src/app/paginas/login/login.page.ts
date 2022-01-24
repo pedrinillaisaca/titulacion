@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LoginInfo } from 'src/app/modelo/loginInfo';
-import { AuthService } from 'src/app/sevices/auth.service';
-import { NotificacionesService } from 'src/app/sevices/notificaciones.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { User } from 'src/app/shared/user.interface';
 
 
@@ -14,7 +13,7 @@ import { User } from 'src/app/shared/user.interface';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  loginInfo:LoginInfo=new LoginInfo();//clase que contienen las credenciales del usuario
+  
   
   user$: Observable<User>= this.authSvc.afAuth.user;
   constructor(

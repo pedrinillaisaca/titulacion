@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../sevices/auth.service';
-import { NotificacionesService } from '../sevices/notificaciones.service';
+import { AuthService } from '../services/auth.service';
+import { NotificacionesService } from '../services/notificaciones.service';
 import { User } from '../shared/user.interface';
 
 

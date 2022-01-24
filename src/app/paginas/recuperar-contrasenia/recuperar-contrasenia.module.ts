@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecuperarContraseniaPageRoutingModule } from './recuperar-contrasenia-routing.module';
 
 import { RecuperarContraseniaPage } from './recuperar-contrasenia.page';
-import { RecuperarContraseniaPipe } from '../recuperar-contrasenia.pipe';
+
 
 @NgModule({
   imports: [
@@ -16,6 +16,6 @@ import { RecuperarContraseniaPipe } from '../recuperar-contrasenia.pipe';
     IonicModule,
     RecuperarContraseniaPageRoutingModule
   ],
-  declarations: [RecuperarContraseniaPage, RecuperarContraseniaPipe]
+  declarations: [RecuperarContraseniaPage]
 })
 export class RecuperarContraseniaPageModule {}
