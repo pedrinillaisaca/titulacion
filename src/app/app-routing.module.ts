@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'galery',
     loadChildren: () => import('./paginas/galery/galery.module').then( m => m.GaleryPageModule)
+  },
+  {
+    path: 'view-data-water-board',
+    loadChildren: () => import('./paginas/view-data-water-board/view-data-water-board.module').then( m => m.ViewDataWaterBoardPageModule)
   }
 ];
 
