@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>view-data-WaterBoard</ion-title>
+    <ion-title>Junta de Agua</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content >
+  <form  #form="ngForm" (ngSubmit)="regWaterBoard(form)">
+    <ion-grid>
+      <ion-row color="primary" justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div text-center>
+            <h3>datos</h3>
+          </div>
+          <div padding>       
+            <ion-item>
+              <ion-input [disabled]="button_bool" name="name" type="name" placeholder="name"  [(ngModel)]='waterboard.nombre' required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [disabled]="button_bool" name="password" type="password" placeholder="Password" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input [disabled]="button_bool" name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
+            </ion-item>
+          </div>
+          <div padding>
+            <ion-button *ngIf="!button_bool"  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>            
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <button (click)="funcionEnable()"
+        type="submit" class="btn btn-warning add_to_cart">
+     update
+</button>
 </ion-content>

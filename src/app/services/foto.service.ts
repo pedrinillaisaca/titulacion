@@ -6,7 +6,7 @@ import { Storage } from '@capacitor/storage';
 import { Foto } from '../modelo/foto.interface';
 import { LoadingController } from '@ionic/angular';
 import { filter, finalize, tap } from 'rxjs/operators';
-import { type } from 'os';
+
 
 
 @Injectable({
@@ -14,12 +14,15 @@ import { type } from 'os';
 })
 export class FotoService {
   public fotos: Foto[]=[];//Arreglo
+  public fotos_paths: string[]=[];//Arreglo de paths 
   private PHOTO_STORAGE: string ='fotos';
 
   constructor(
     private storage: AngularFireStorage,
     private loadingCrtl: LoadingController   
   ) { }
+
+
 
   public async addNewToGalery(){
     const fotoCapturada = await Camera.getPhoto({
@@ -36,10 +39,10 @@ export class FotoService {
     const savedImageFile = await this.savePicture(fotoCapturada)
     this.fotos.unshift(savedImageFile)
 
-    // Storage.set({
-    //   key:this.PHOTO_STORAGE,
-    //   value:JSON.stringify(this.fotos)
-    // })
+    Storage.set({
+      key:this.PHOTO_STORAGE,
+      value:JSON.stringify(this.fotos)
+    })
     
 
   }
@@ -85,10 +88,9 @@ export class FotoService {
       })
       foto.webviewPath=`data:image/jpeg;base64,${readFile.data}`      
     }
-
   }
 
-  async savedFirestorage(){
+  public async savedFirestorage(){
     for(let foto of this.fotos){     
       let readFile =await Filesystem.readFile({
         path: foto.filepath,
@@ -141,6 +143,7 @@ export class FotoService {
           downloadURL.subscribe(url=> {
             data.url=url;
             console.log("download terminado"+url)
+            this.fotos_paths.unshift(url);//guardar las urls
             // this.uploadFinished.emit(data);
           });
         })
@@ -164,6 +167,10 @@ export class FotoService {
     const formattedSize= Math.round(size*100)/100;
     const unit =units[power];
     return size ? `${formattedSize} ${unit}`: '0';
+  }
+
+  public async clearStorage(){
+    await Storage.clear();
   }
 
 }
