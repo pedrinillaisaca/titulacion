@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { WaterBoard } from 'src/app/modelo/WaterBoard';
+import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.service';
 
 @Component({
   selector: 'app-view-data-water-board',
@@ -10,10 +11,21 @@ export class ViewDataWaterBoardPage implements OnInit {
 
   button_bool:boolean=true;
   waterboard:WaterBoard=new WaterBoard();//incializamos el objeto
-  constructor() { }
+  waterboardA:any;
+  uidWater:string="zMVpBo6VoBI3xNJSnhvS";
 
-  ngOnInit() {
+  constructor(private servWater:ServWaterboardDbService) {     
   }
+  
+  
+  
+  async ngOnInit() {      
+    this.waterboardA= await this.servWater.getWaterBoardById(this.uidWater);
+    console.log(this.waterboardA.nombre)    
+    this.waterboard=this.waterboardA;
+  }
+  
+  
 
   funcionEnable(){
     this.button_bool=!this.button_bool;

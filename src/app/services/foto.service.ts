@@ -6,6 +6,7 @@ import { Storage } from '@capacitor/storage';
 import { Foto } from '../modelo/foto.interface';
 import { LoadingController } from '@ionic/angular';
 import { filter, finalize, tap } from 'rxjs/operators';
+import { resolve } from 'dns';
 
 
 
@@ -91,70 +92,60 @@ export class FotoService {
   }
 
   public async savedFirestorage(){
+
     for(let foto of this.fotos){     
-      let readFile =await Filesystem.readFile({
-        path: foto.filepath,
-        directory: Directory.Data
-      })
+      // let readFile =await Filesystem.readFile({
+      //   path: foto.filepath,
+      //   directory: Directory.Data
+      // })
       // console.log('foto.filepath');
       // foto.webviewPath=`data:image/jpeg;base64,${readFile.data}`      
       
       // console.log(foto.webviewPath);
-      this.startUpload(foto.webviewPath);
+      // this.startUpload(foto.webviewPath);
+      
+      this.fotos_paths.unshift(await this.startUpload(foto.webviewPath));
+      
     }
-
+    return this.fotos_paths;
   }
 
-  async startUpload(file:string){
+  async startUpload(file:string): Promise <string> {
+    return new Promise( resolve=>{
+      
+      let byteChacarters=atob(file.split(',')[1]);
+      const path=`images/${new Date().getTime()}.jpg` ; 
   
-    let byteChacarters=atob(file.split(',')[1]);
-    const path=`images/${new Date().getTime()}.jpg` ; 
-
-    let image=file;
-    const data={
-      ref:path,
-      type:'image',
-      url: null,
-      name: 'image',
-      size: this.fileSize(Number(byteChacarters.length))
-    }
-
-    try{
-      let ref=this.storage.ref(path);
-      let task=ref.putString(image, 'data_url');
-      const loading=await this.loadingCrtl.create({
-        message: "Espere , subiendo foto"
-      });
-      await loading.present();
-
-      task.percentageChanges().pipe(
-        filter(val=> val ===100),
-        tap(complete=>{
-          setTimeout(()=>{
-            loading.dismiss();
-
-          },3500);
-        })  
-      ).subscribe();
-
-      task.snapshotChanges().pipe(
-        finalize(()=>{
-          let downloadURL=ref.getDownloadURL()
-          downloadURL.subscribe(url=> {
-            data.url=url;
-            console.log("download terminado"+url)
-            this.fotos_paths.unshift(url);//guardar las urls
-            // this.uploadFinished.emit(data);
-          });
-        })
-
-      ).subscribe();
-
-
-    }catch(error){
-      console.log(JSON.stringify(error));
-      console.log("Error B===D: ");
-    }
+      let image=file;
+      const data={
+        ref:path,
+        type:'image',
+        url: null,
+        name: 'image',
+        size: this.fileSize(Number(byteChacarters.length))
+      }
+  
+      try{
+        let ref=this.storage.ref(path);
+        let task=ref.putString(image, 'data_url');     
+  
+        task.snapshotChanges().pipe(
+          finalize(()=>{
+            ref.getDownloadURL().subscribe( res => {
+              const downloadURL = res;
+              resolve(downloadURL);              
+              return;
+            });
+          })
+  
+        ).subscribe();
+  
+  
+      }catch(error){
+        console.log(JSON.stringify(error));
+        console.log("Error B===D: ");
+      }
+    });
 
   }
 
@@ -172,5 +163,25 @@ export class FotoService {
   public async clearStorage(){
     await Storage.clear();
   }
+
+
+  uploadImage(file: any, path: string, nombre: string): Promise<string> {
+    return new Promise(  resolve => {
+        const filePath = path + '/' + nombre;
+        const ref = this.storage.ref(filePath);
+        const task = ref.put(file);
+        task.snapshotChanges().pipe(
+          finalize(  () => {
+                ref.getDownloadURL().subscribe( res => {
+                  const downloadURL = res;
+                  resolve(downloadURL);
+                  console.log("downloadURL= "+downloadURL)
+                  return;
+                });
+          })
+       )
+      .subscribe();
+    });
+}
 
 }

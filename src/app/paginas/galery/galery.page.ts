@@ -30,4 +30,9 @@ export class GaleryPage implements OnInit {
     this.router.navigate(['/register-waterboard']);
   }
 
+  ngOnDestroy():void{
+    console.log('DEstroy')
+    this.servFoto.clearStorage()
+  }
+
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { WaterBoard } from 'src/app/modelo/WaterBoard';
 import { FotoService } from 'src/app/services/foto.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
@@ -13,11 +14,13 @@ import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.ser
 export class RegisterWaterboardPage implements OnInit {
 
   waterboard:WaterBoard=new WaterBoard();//incializamos el objeto
+  loading: any;
   constructor(
     public servWaterdb:ServWaterboardDbService,  
     public notifi:NotificacionesService,
     private router:Router,
-    private svrPhoto:FotoService
+    private svrPhoto:FotoService,
+    public loadingController:LoadingController
    ) { }
 
   ngOnInit() {
@@ -25,16 +28,17 @@ export class RegisterWaterboardPage implements OnInit {
   }
   
 
-  regWaterBoard(){
-    this.savedPhotos();
-    this.waterboard.fotos_paths=this.svrPhoto.fotos_paths;
+  async regWaterBoard(){
+    this.presentLoading();
+    await this.savedPhotos();    
     console.log(this.waterboard);    
     this.servWaterdb.saveWaterBoard(this.waterboard)
     this.notifi.notificacionToast("Guardado Correctamente")
+    this.loading.dismiss();
   }
 
-  savedPhotos(){
-   this.svrPhoto.savedFirestorage();
+  async savedPhotos(){
+    this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();
   }
 
 
@@ -42,9 +46,19 @@ export class RegisterWaterboardPage implements OnInit {
     this.router.navigate(['/galery']); 
   }
 
-  ngOnDestroy():void{
-    console.log('DEstroy')
-    this.svrPhoto.clearStorage()
+  // ngOnDestroy():void{
+  //   console.log('DEstroy')
+  //   this.svrPhoto.clearStorage()
+  // }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'normal',
+      message: 'guardando...',
+    });
+    await this.loading.present();
   }
+
+
 
 }

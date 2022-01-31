@@ -17,12 +17,12 @@
             <ion-item>
               <ion-input [disabled]="button_bool" name="name" type="name" placeholder="name"  [(ngModel)]='waterboard.nombre' required></ion-input>
             </ion-item>
-            <ion-item>
+            <!-- <ion-item>
               <ion-input [disabled]="button_bool" name="password" type="password" placeholder="Password" ngModel required></ion-input>
             </ion-item>
             <ion-item>
               <ion-input [disabled]="button_bool" name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
-            </ion-item>
+            </ion-item> -->
           </div>
           <div padding>
             <ion-button *ngIf="!button_bool"  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>            
@@ -35,4 +35,16 @@
         type="submit" class="btn btn-warning add_to_cart">
      update
 </button>
+</ion-content>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" 
+      *ngFor="let foto of waterboard.fotos_paths; index as position">
+      <ion-img [src]='foto'></ion-img>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
