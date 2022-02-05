@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import { GooglemapsComponent } from 'src/app/componentes/googlemaps/googlemaps.component';
 import { WaterBoard } from 'src/app/modelo/WaterBoard';
 import { FotoService } from 'src/app/services/foto.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
@@ -20,7 +21,10 @@ export class RegisterWaterboardPage implements OnInit {
     public notifi:NotificacionesService,
     private router:Router,
     private svrPhoto:FotoService,
-    public loadingController:LoadingController
+    public loadingController:LoadingController,
+
+    public menucontroler: MenuController,             
+    private modalController: ModalController
    ) { }
 
   ngOnInit() {
@@ -58,6 +62,35 @@ export class RegisterWaterboardPage implements OnInit {
     });
     await this.loading.present();
   }
+
+  async addDirection() {
+
+    const ubicacion = this.waterboard.ubicacion;
+    let positionInput = {  
+      lat: 0,
+      lng: 0,
+    };
+    if (ubicacion !== null) {
+        positionInput = ubicacion; 
+    }
+
+    const modalAdd  = await this.modalController.create({
+      component: GooglemapsComponent,
+      mode: 'ios',
+      swipeToClose: true,
+      componentProps: {position: positionInput}
+    });
+    await modalAdd.present();
+
+    const {data} = await modalAdd.onWillDismiss();
+    if (data) {
+      console.log('data -> ', data);
+      this.waterboard.ubicacion = data.pos;
+      console.log('this.cliente -> ', this.waterboard);
+    }
+
+  }
+
 
 
 

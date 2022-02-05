@@ -19,8 +19,9 @@ export class ServWaterboardDbService {
     refUsuario.doc(waterboard.uid).set(Object.assign({},waterboard),{merge:true})
   }
   // retorna una lista de las juntas de agua las cuales no tengan un eliminado logico
-  getWaterBoards(): Observable<any[]> {
-    return this.afs.collection("waterboard",ref => ref.where('deleted', '==', false)).valueChanges();  
+  getWaterBoards(): Observable<any[]> {    
+    // return this.afs.collection("waterboard",ref => ref.where('deleted', '==', false)).valueChanges();  
+    return this.afs.collection("waterboard").valueChanges();
   }
   // retorna determinada junta en funcion al uid de la misma
   async getWaterBoardById(uid: string){

@@ -18,12 +18,19 @@
           </div>
           <div padding>       
             <ion-item>
-              <ion-input name="name" type="name"  [(ngModel)]='waterboard.nombre' required></ion-input>
+              <ion-input name="name" type="name" placeholder="nombre junta de agua"  [(ngModel)]='waterboard.nombre' required></ion-input>
             </ion-item>
-            <!-- <ion-item>
-              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+             <ion-item (click)="addDirection()">
+              <ion-label class="normal">
+                Ubicación
+             </ion-label>
+             <ion-buttons slot="end">
+               <ion-button>
+                    <ion-icon slot="icon-only" color="danger" name="location"></ion-icon>
+               </ion-button>
+             </ion-buttons>
             </ion-item>
-            <ion-item>
+            <!--<ion-item>
               <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
             </ion-item> -->
           </div>

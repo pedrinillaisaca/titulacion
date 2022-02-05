@@ -8,12 +8,15 @@ import { ViewAllWaterboardPageRoutingModule } from './view-all-waterboard-routin
 
 import { ViewAllWaterboardPage } from './view-all-waterboard.page';
 
+import { GoogleMapsModule } from '@angular/google-maps'; 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewAllWaterboardPageRoutingModule
+    ViewAllWaterboardPageRoutingModule,
+    GoogleMapsModule,
   ],
   declarations: [ViewAllWaterboardPage]
 })
