@@ -49,6 +49,10 @@ const routes: Routes = [
   {
     path: 'view-data-water-board',
     loadChildren: () => import('./paginas/view-data-water-board/view-data-water-board.module').then( m => m.ViewDataWaterBoardPageModule)
+  },
+  {
+    path: 'search-waterboard',
+    loadChildren: () => import('./paginas/search-waterboard/search-waterboard.module').then( m => m.SearchWaterboardPageModule)
   }
 ];
 

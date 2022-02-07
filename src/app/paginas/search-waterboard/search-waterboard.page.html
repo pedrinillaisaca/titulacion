@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>searchWaterboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>    
+  <!-- <ion-input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost"></ion-input>
+  
+  <ion-item-sliding *ngFor="let post of posts | filtroCoincident:filterPost">
+    <ion-item>
+        <ion-avatar slot="start">
+            
+        </ion-avatar>
+        <ion-label>
+            <h2>{{post.title}}</h2>
+        </ion-label>      
+    </ion-item>    
+  </ion-item-sliding> -->
+
+  <!-- ella no te ama -->
+  <!-- ella no te ama -->
+  <!-- ella no te ama -->
+  <!-- ella no te ama -->
+
+
+  <ion-input type="text" class="form-control" name="filterWater" placeholder="Search..." [(ngModel)]="filterWater"></ion-input>
+  <div *ngIf='filterWater.length >=3'>
+    <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]=junta.fotos_paths[0]>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{junta.nombre}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <h5>opciones</h5>
+        <!-- (click)="editarUsuario(usuario)" ABAJO PILAS -->
+        <ion-item-option color="primary" >
+          <ion-icon slot="start" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+          Editar
+        </ion-item-option>
+        <ion-item-option color="secondary" >
+          <ion-icon slot="start" name="archive"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </div>
+  
+  <ion-button (click)="verTipo()" size="large" type="submit"  expand="block">ver tipo</ion-button>            
+  
+</ion-content>

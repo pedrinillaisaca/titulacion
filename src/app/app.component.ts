@@ -11,7 +11,8 @@ export class AppComponent {
     { title: 'Login', url: '/login', icon: 'mail' },
     { title: 'Registro', url: '/register-waterboard', icon: 'paper-plane' },
     { title: 'Ver juntas Agua', url: '/view-all-waterboard', icon: 'heart' },
-    { title: 'Archived', url: '/view-data-water-board', icon: 'archive' },
+    { title: 'Buscar Juntas', url: '/search-waterboard', icon: 'water' },
+    { title: 'Archived', url: '/view-data-water-board', icon: 'archive' },    
     // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
