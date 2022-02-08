@@ -16,7 +16,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     FormsModule,
     IonicModule,
     SearchWaterboardPageRoutingModule,
-    PipesModule    
+    PipesModule
   ],
   declarations: [SearchWaterboardPage]
 })

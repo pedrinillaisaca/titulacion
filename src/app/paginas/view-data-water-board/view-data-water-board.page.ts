@@ -14,7 +14,7 @@ export class ViewDataWaterBoardPage implements OnInit {
   waterboardA:any;
   uidWater:string="zMVpBo6VoBI3xNJSnhvS";
 
-  constructor(private servWater:ServWaterboardDbService) {     
+  constructor(private servWater: ServWaterboardDbService) {     
   }
   
   
