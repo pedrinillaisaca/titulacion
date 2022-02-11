@@ -18,6 +18,10 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { PipesModule } from './pipes/pipes.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppLauncher } from '@ionic-native/app-launcher/ngx';
+
+
 
 
 
@@ -31,9 +35,16 @@ import { PipesModule } from './pipes/pipes.module';
   AngularFireDatabaseModule,
   AngularFireStorageModule,
   AngularFirestoreModule,
-  PipesModule
+  PipesModule,
+  FormsModule,
+  ReactiveFormsModule,
+  
+
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    AppLauncher,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

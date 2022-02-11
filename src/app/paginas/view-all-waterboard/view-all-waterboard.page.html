@@ -1,21 +1,31 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>View all Water Boards</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Ubicación de la junta</ion-title>
+    </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <google-map height="100%" width="100%" [center]="center">
-    <map-marker
-    *ngFor="let point of points"
-      [position]="point.position"
-      [title]="point.title"
-  >
-  </map-marker>
-</google-map>
-<ion-slides (ionSlideDidChange)="onSlideDidChange()">
+    <google-map height="100%" width="100%" [center]="center">
+        <map-marker [position]="marcador" [title]="PruebaNombre">
+        </map-marker>
+    </google-map>
+    <ion-fab vertical='bottom' horizontal='left' slot="fixed">
+        <ion-fab-button (click)="goback()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-fab vertical='bottom' horizontal='center' slot="fixed">
+        <ion-fab-button (click)="runMap()">
+            <ion-icon name="paper-plane"></ion-icon>
+        </ion-fab-button>
+        <ion-label style="color: black;">
+            <h1><b>Iniciar Ruta</b></h1>
+        </ion-label>
+    </ion-fab>
+    <!-- <ion-slides (ionSlideDidChange)="onSlideDidChange()">
   <ion-slide *ngFor="let point of points">
     <ion-card>
       <ion-item>
@@ -29,6 +39,7 @@
       </ion-item>
     </ion-card>
   </ion-slide>
-</ion-slides>
-<ion-button color="dark" (click)="run()">Ver Ubicaciones</ion-button>
+</ion-slides> -->
+
+
 </ion-content>

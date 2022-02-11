@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+import { runInThisContext } from 'vm';
+import { ServWaterboardDbService } from './serv-waterboard-db.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,10 @@ export class NotificacionesService {
 
   constructor(public toastController: ToastController,
     public alertController: AlertController,
-    private router: Router) { }
+    private router: Router,
+    private serWaterDB:ServWaterboardDbService,
+    
+    ) { }
 
 
   async notificacionToast(text: string){
@@ -31,7 +36,10 @@ export class NotificacionesService {
     });
     toast.present();
   }
-  async confirmacion(header: string, message: string, funcion?) {
+
+  
+
+  async confirmacion(header: string, message: string, funtion?) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: header,
@@ -48,12 +56,36 @@ export class NotificacionesService {
           text: 'Aceptar',
           role: 'ok',
           handler: () => {
-            funcion();
+            funtion();
           }
         }
       ]
     });
+    await alert.present();
+  }
 
+  async confirmacionEliminarJunta(header: string, message: string, uid:string) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: header,
+      message: message,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            
+          }
+        }, {
+          text: 'Aceptar',
+          role: 'ok',
+          handler: () => {
+            this.serWaterDB.borrarWaterBoard(uid);            
+          }
+        }
+      ]
+    });
     await alert.present();
   }
 

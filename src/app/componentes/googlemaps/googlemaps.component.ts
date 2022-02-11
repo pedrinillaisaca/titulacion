@@ -47,8 +47,7 @@ export class GooglemapsComponent implements OnInit {
     ) { }
 
     ngOnInit():void  {
-      this.init();
-      console.log('position ->', this.positionn)
+      this.init();      
     }
     async init() {
 
@@ -102,13 +101,10 @@ clickHandleEvent() {
 
 
 addMarker(position: any): void {
-
       let latLng = new google.maps.LatLng(position.lat, position.lng);
-
       this.marker.setPosition(latLng);
       this.map.panTo(position);
       this.positionSet = position;
-
 }
 
 

@@ -1,68 +1,106 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ServWaterboardDbService } from '../../services/serv-waterboard-db.service';
+import { WaterBoard } from '../../modelo/WaterBoard';
+import { NotificacionesService } from '../../services/notificaciones.service';
+import { FotoService } from '../../services/foto.service';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
-import { GooglemapsComponent } from 'src/app/componentes/googlemaps/googlemaps.component';
-import { WaterBoard } from 'src/app/modelo/WaterBoard';
-import { ApigeodecoderService } from 'src/app/services/apigeodecoder.service';
-import { FotoService } from 'src/app/services/foto.service';
-import { NotificacionesService } from 'src/app/services/notificaciones.service';
-import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.service';
+import { ApigeodecoderService } from '../../services/apigeodecoder.service';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { GooglemapsComponent } from '../../componentes/googlemaps/googlemaps.component';
+import { timeout } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-register-waterboard',
-  templateUrl: './register-waterboard.page.html',
-  styleUrls: ['./register-waterboard.page.scss'],
+  selector: 'app-edit-water-board',
+  templateUrl: './edit-water-board.page.html',
+  styleUrls: ['./edit-water-board.page.scss'],
 })
-export class RegisterWaterboardPage implements OnInit {
+
+
+
+export class EditWaterBoardPage implements OnInit {
   studentForm: FormGroup
-  waterboard:WaterBoard= new WaterBoard();  
-  loading: any;
   estadoW:boolean=true
+  loading: any;
+  uidWater:string
+  waterboard:WaterBoard= new WaterBoard();
+  waterboardA:any;
   constructor(
+    private router:Router,
+    private route:ActivatedRoute,  
+    private serWaterDB:ServWaterboardDbService,
+
     public servWaterdb:ServWaterboardDbService,  
     public notifi:NotificacionesService,
-    private router:Router,
+    
     private svrPhoto:FotoService,
     public loadingController:LoadingController,
     public menucontroler: MenuController,             
     private modalController: ModalController,
     private servApiGeoDeco:ApigeodecoderService,
     private fb: FormBuilder
-   ) {      }
 
-  ngOnInit() {
-    this.studentForm=this.fb.group({
-      nombreEscuela:[''],
-      infoStudent:this.fb.array([this.studentInfo()])
-    });
+
+  ) { 
+    this.route.queryParams.subscribe(params=>{
+      try {
+        if(this.router.getCurrentNavigation().extras.queryParams){
+        let param=this.router.getCurrentNavigation().extras.queryParams.uidParam;        
+        // this.uidWater=this.router.getCurrentNavigation().extras.queryParams.infUser;         
+        this.uidWater=param;       
+
+      }
+      } catch (error) {
+        console.log("Error al enivar");
+      }
+                  
+    }); 
+
   }
+
+  async ngOnInit() {        
+      // this.waterboard.uid='';
+      // this.waterboard.nombre='';
+      // this.waterboard.comentario='';
+      // this.waterboard.tipoMonitoreo='';
+      // this.waterboard.fotos_paths=[];
+      // this.waterboard.responzables=[];
+      // this.waterboard.provincia='';
+      // this.waterboard.ubicacion.lat=0;
+      // this.waterboard.ubicacion.lng=0;        
+    this.waterboardA= await this.serWaterDB.getWaterBoardById(this.uidWater);
+    this.waterboard=this.waterboardA
+    this.estadoW=this.waterboard.estado;
+    console.log(this.waterboard);
+  }
+
+
+
   
-
-  async regWaterBoard(){
+   regWaterBoard(){
     this.presentLoading();
-    await this.savedPhotos();          
+    // await this.savedPhotos();          
     this.waterboard.estado=this.estadoW;
-    this.getResponzablesObj();
+    // this.getResponzablesObj();
     this.servWaterdb.saveWaterBoard(this.waterboard)
-    this.loading.dismiss();
     this.notifi.notificacionToast("Guardado Correctamente")
+    this.loading.dismiss();
 
   }
 
-  getResponzablesObj(){    
-    var aryy=this.studentForm.getRawValue().infoStudent
-    let listaResponsables=[]
+  // getResponzablesObj(){    
+  //   var aryy=this.studentForm.getRawValue().infoStudent
+  //   let listaResponsables=[]
     
-    for (const property in aryy) {      
-      listaResponsables.push(aryy[property].nombreresponzable)
-      // console.log(`${property}: ${array[property]}`);
-      // index=`${property}`
-    }        
-    this.waterboard.responzables=listaResponsables;
-    console.log(this.waterboard.responzables);
+  //   for (const property in aryy) {      
+  //     listaResponsables.push(aryy[property].nombreresponzable)
+  //     // console.log(`${property}: ${array[property]}`);
+  //     // index=`${property}`
+  //   }        
+  //   this.waterboard.responzables=listaResponsables;
+  //   console.log(this.waterboard.responzables);
     
-  }
+  // }
 
   async savedPhotos(){
     this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();
@@ -171,7 +209,4 @@ removeStudent(index){
 
 
 
-
-
 }
-

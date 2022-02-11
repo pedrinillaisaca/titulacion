@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>puta</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card class="centrar">
+        <form [formGroup]="studentForm" #form="ngForm">
+            <!-- <ion-item>
+          <ion-input ngDefaultControl formControlName="nombreEscuela" placeholder="nombre Escuela" required='true'></ion-input>
+      </ion-item> -->
+
+            <ion-grid formArrayName="infoStudent" *ngFor="let student of getStudentInfo().controls ; let i=index ">
+                <ion-row>
+                    <!-- <ion-col>
+                  <ion-item [formGroupName]='i'>
+                      <ion-input ngDefaultControl formControlName="nombre" placeholder='nombre 1' required='true'></ion-input>
+                  </ion-item>
+              </ion-col> -->
+
+                    <ion-col>
+                        <ion-item [formGroupName]='i'>
+                            <ion-input ngDefaultControl formControlName="edad" placeholder='edad 1' required='true'></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-icon name='trash-outline' (click)='removeStudent(i)'></ion-icon>
+
+                </ion-row>
+
+            </ion-grid>
+
+            <ion-button (click)="addStudent()">Add</ion-button>
+            <ion-button (click)="submit()">Add</ion-button>
+        </form>
+    </ion-card>
+</ion-content>

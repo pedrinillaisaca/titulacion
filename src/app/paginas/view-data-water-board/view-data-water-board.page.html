@@ -1,50 +1,171 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Junta de Agua</ion-title>
-  </ion-toolbar>
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Información detallada sobre la junta</ion-title>
+    </ion-toolbar>
 </ion-header>
 
+<ion-content>
+    <ion-item>
+        <ion-label>
+            <div class="centrar">
+                <h4 class="ion-text-uppercase">Informacion a detalla de la junta de agua</h4>
+            </div>
+        </ion-label>
+    </ion-item>
+    <ion-card>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label class="ion-text-uppercase">Atributo</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label class="ion-text-uppercase">detalle</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Nombre de la junta:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>{{waterboard.nombre}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Se encuentra en la provincia de:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>{{waterboard.provincia}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Responzables de la junta:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label *ngFor="let responzable of waterboard.responzables">{{responzable}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Ubicacion Geográfica:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Pulse en el icono para ver la ubicaion
+                    <ion-icon class="mat-icon" color="danger" name='location' (click)='refirectMapa(waterboard.ubicacion)'></ion-icon>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Estado de la junta:</ion-label>
+            </ion-col>
+            <ion-col col-4 *ngIf="waterboard.estado; else otro">
+                <ion-label>Activa</ion-label>
+                <ng-template #otro>
+                    <ion-col>
+                        <ion-label>Inactiva</ion-label>
+                    </ion-col>
+                </ng-template>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Tipo de Monitoreo:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>{{waterboard.tipoMonitoreo}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Comentario:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>{{waterboard.comentario}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="border-bottom: groove;">
+            <ion-col col-4>
+                <ion-label>Fotografias:</ion-label>
+            </ion-col>
+            <ion-col col-4>
+                <ion-label>Pulse en el icono para ver las imágenes
+                    <ion-icon class="mat-icon" color="primary" name='images' (click)='viewImages()'></ion-icon>
+                </ion-label>
+            </ion-col>
+        </ion-row>
 
-<ion-content >
-  <form  #form="ngForm" (ngSubmit)="regWaterBoard(form)">
+        <div class="box">
+            <ion-col>
+                <ion-button (click)="editarJunta()" size="short" type="submit" expand="block">Editar junta</ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button (click)="deletjunta()" size="short" color="danger" expand="block">Eliminar junta</ion-button>
+            </ion-col>
+        </div>
+
+        <!-- <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let foto of waterboard.fotos_paths; index as position">
+                    <ion-img [src]='foto'></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid> -->
+    </ion-card>
+
+</ion-content>
+
+
+
+<!-- <ion-content>
+  <form #form="ngForm" (ngSubmit)="regWaterBoard(form)">
     <ion-grid>
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div text-center>
             <h3>datos</h3>
           </div>
-          <div padding>       
+          <div padding>
             <ion-item>
-              <ion-input [disabled]="button_bool" name="name" type="name" placeholder="name"  [(ngModel)]='waterboard.nombre' required></ion-input>
+              <ion-input [disabled]="button_bool" name="name" type="name" placeholder="name"
+                [(ngModel)]='waterboard.nombre' required></ion-input>
             </ion-item>
-            <!-- <ion-item>
-              <ion-input [disabled]="button_bool" name="password" type="password" placeholder="Password" ngModel required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input [disabled]="button_bool" name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
-            </ion-item> -->
           </div>
           <div padding>
-            <ion-button *ngIf="!button_bool"  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>            
+            <ion-button *ngIf="!button_bool" size="large" type="submit" [disabled]="form.invalid" expand="block">
+              Register</ion-button>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
-  <button (click)="funcionEnable()"
-        type="submit" class="btn btn-warning add_to_cart">
-     update
-</button>
-</ion-content>
+  <button (click)="funcionEnable()" type="submit" class="btn btn-warning add_to_cart">
+    update
+  </button>
+</ion-content> 
 
-
+============================================================================================================
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" 
-      *ngFor="let foto of waterboard.fotos_paths; index as position">
-      <ion-img [src]='foto'></ion-img>
-    </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+  <ion-text color="secondary">
+    <h1>Nombre</h1>
+  </ion-text>
+  
+  <ion-text color="dark">
+    <h2>{{waterboard.nombre }}</h2>
+  </ion-text>
+
+  <ion-text color="secondary">
+    <h1>Provincia</h1>
+  </ion-text>
+  
+  <ion-text color="dark">
+    <h2>{{waterboard.provincia }}</h2>
+  </ion-text>
+  
+
+
+
+</ion-content>-->

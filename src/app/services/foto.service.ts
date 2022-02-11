@@ -108,6 +108,7 @@ export class FotoService {
       
     }
     return this.fotos_paths;
+
   }
 
   async startUpload(file:string): Promise <string> {

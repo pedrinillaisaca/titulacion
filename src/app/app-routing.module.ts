@@ -11,11 +11,7 @@ const routes: Routes = [
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
-    path: 'folder/:pag-general',
-    loadChildren: () => import('./paginas/pag-general/pag-general.module').then( m => m.PagGeneralPageModule)
-  },
+  },  
   {
     path: 'login',
     loadChildren: () => import('./paginas/login/login.module').then( m => m.LoginPageModule)
@@ -48,11 +44,21 @@ const routes: Routes = [
   },
   {
     path: 'view-data-water-board',
-    loadChildren: () => import('./paginas/view-data-water-board/view-data-water-board.module').then( m => m.ViewDataWaterBoardPageModule)
+    loadChildren: () => import('./paginas/view-data-water-board/view-data-water-board.module').then( m => m.ViewDataWaterBoardPageModule),
+    canActivate:[IsLoginGuard]
   },
   {
     path: 'search-waterboard',
-    loadChildren: () => import('./paginas/search-waterboard/search-waterboard.module').then( m => m.SearchWaterboardPageModule)
+    loadChildren: () => import('./paginas/search-waterboard/search-waterboard.module').then( m => m.SearchWaterboardPageModule),
+    canActivate:[IsLoginGuard]
+  },
+  {
+    path: 'pag-prueba',
+    loadChildren: () => import('./paginas/pag-prueba/pag-prueba.module').then( m => m.PagPruebaPageModule)
+  },
+  {
+    path: 'edit-water-board',
+    loadChildren: () => import('./paginas/edit-water-board/edit-water-board.module').then( m => m.EditWaterBoardPageModule)
   }
 ];
 

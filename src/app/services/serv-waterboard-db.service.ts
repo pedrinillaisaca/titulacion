@@ -44,7 +44,7 @@ export class ServWaterboardDbService {
   //segunda manera de obtener una determinada junta
   getWaterBoardById2(uid: string) :Observable<any>{
     console.log("ACTIVE SERVICIO");
-    return this.afs.collection("waterboard", ref => ref.where('uid', '==', uid)).valueChanges();
+    return this.afs.collection("waterboard", ref => ref.where('uid', '==', uid).where('deleted', '==', false)).valueChanges();
   }
   //Eliminar junta 
   async borrarWaterBoard(uid: string){

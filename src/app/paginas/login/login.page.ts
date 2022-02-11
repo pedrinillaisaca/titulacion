@@ -7,6 +7,7 @@ import { User } from 'src/app/shared/user.interface';
 
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
     
     private router:Router,    
     private authSvc: AuthService,
-    private notificaciones:NotificacionesService
+    private notificaciones:NotificacionesService,
+    
 
   ) { }
 
@@ -77,13 +79,13 @@ export class LoginPage implements OnInit {
 
   private redirectUser(isVerified: boolean): void {
     if (isVerified) {
-      this.router.navigate(['/view-all-waterboard']);      
+      this.router.navigate(['/search-waterboard']);      
     } else {
       this.router.navigate(['/msj-confirm']);
     }
   }
 
 
-
+  
 
 }
