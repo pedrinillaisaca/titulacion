@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WaterBoard } from 'src/app/modelo/WaterBoard';
 import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.service';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import {  NavigationExtras, Router } from '@angular/router';
+
 
 interface Provincia{
   id: number;
@@ -22,10 +22,10 @@ export class SearchWaterboardPage implements OnInit {
  
   filterWater = '';
   // juntas: WaterBoard[] = [];
-  juntas1 = [];
-
-
+  
+  
   juntas: WaterBoard[] = [];    
+  juntas1 = [];
   seleccionadoProv:string='Azuay';
   // juntas1: Observable<WaterBoard[]>;
   
