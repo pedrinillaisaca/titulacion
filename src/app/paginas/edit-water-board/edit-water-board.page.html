@@ -27,7 +27,7 @@
 
                             <ion-item>
                                 <ion-label>Monitoreo</ion-label>
-                                <ion-select [(ngModel)]="waterboard.tipoMonitoreo" name="tipoMonitoreo" interface="popover" placeholder="Seleccione un tipo de monitoreo">
+                                <ion-select [(ngModel)]="waterboard.tipoMonitoreo" name="tipoMonitoreo" interface="popover" placeholder="Seleccione un tipo de monitoreo" required>
                                     <ion-select-option value="Manual">Manual</ion-select-option>
                                     <ion-select-option value="Automático">Automático</ion-select-option>
                                     <ion-select-option value="Ninguno">Ninguno</ion-select-option>
@@ -52,7 +52,7 @@
                             </form> -->
                             <ion-item>
                                 <ion-label class="centrar">
-                                    <ion-button (click)="addStudent()">Agregar responsable </ion-button>
+                                    <ion-button (click)="addStudent()" required>Agregar responsable </ion-button>
                                 </ion-label>
                             </ion-item>
                             <ion-item>
@@ -69,8 +69,11 @@
                             <!-- <ion-button (click)="submit()">Add</ion-button> -->
                             <ion-item (click)="addDirection()">
                                 <ion-label class="normal">
-                                    Ubicación
+                                    Ubicación:
                                 </ion-label>
+                                <ion-input name='ubicaciones' disabled="false" required>
+                                    <a *ngIf="waterboard.ubicacion != undefined"> {{waterboard.ubicacion.lat}},{{waterboard.ubicacion.lng}}</a>
+                                </ion-input>
                                 <ion-buttons slot="end">
                                     <ion-button>
                                         <ion-icon slot="icon-only" color="danger" name="location"></ion-icon>
@@ -87,7 +90,7 @@
                                 <ion-label>Comentario</ion-label>
                                 <!-- <ion-label class="normal">Comentario</ion-label> -->
                                 <!-- disabled readonly   [(ngModel)]="waterboard.comentario"-->
-                                <ion-input name="perra" [(ngModel)]="waterboard.comentario" placeholder="En este apartado puede comentar detalles acerca de la junta de agua"></ion-input>
+                                <ion-input name="comentario" [(ngModel)]="waterboard.comentario" placeholder="En este apartado puede comentar detalles acerca de la junta de agua"></ion-input>
                             </ion-item>
                         </div>
                         <div padding>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
@@ -19,8 +20,13 @@ export class AppComponent {
   ];
   public labels = ['Cerrar Sesion'];
   constructor( 
-    private autenServ:AuthService
-  ) {}
+    private autenServ:AuthService,
+    private platform:Platform
+  ) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      console.log('Handler was called!');
+    });
+  }
 
   ngOnInit() {
     const path = window.location.pathname.split('folder/')[1];

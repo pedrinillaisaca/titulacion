@@ -77,14 +77,14 @@ export class EditWaterBoardPage implements OnInit {
 
 
   
-   regWaterBoard(){
+   async regWaterBoard(){
     this.presentLoading();
-    // await this.savedPhotos();          
+    await this.savedPhotos();          
     this.waterboard.estado=this.estadoW;
     // this.getResponzablesObj();
     this.servWaterdb.saveWaterBoard(this.waterboard)
-    this.notifi.notificacionToast("Guardado Correctamente")
     this.loading.dismiss();
+    this.notifi.notificacionToast("Guardado Correctamente")
 
   }
 

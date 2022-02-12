@@ -42,9 +42,10 @@ export class SearchWaterboardPage implements OnInit {
     this.servWater.getWaterBoards().subscribe(juntaOne => {
       this.juntas = juntaOne as WaterBoard[];
       this.juntas1 = this.juntas;      
+      console.log(this.juntas1)
     });  
-    console.log(this.juntas1)      
-    console.log(this.juntas)      
+    console.log(this.juntas1)
+    
 
     // this.juntas1=this.servWater.getWaterBoards();
     

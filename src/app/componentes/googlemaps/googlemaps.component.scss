@@ -5,16 +5,24 @@
 }
 
 .miubicacion {
-  position: fixed;
-  bottom: 0px;  
-  background: #ffd740;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: #2E86C1;
 }
 
 .aceptar {
     position: fixed;
     top: 50px;
-    right: 5px;
+    right: 10px;
     background: #80d894;
+}
+
+.cancelar {
+    position: fixed;
+    top: 100px;
+    right: 10px;
+    background: #C70039;
 }
 
 .search {

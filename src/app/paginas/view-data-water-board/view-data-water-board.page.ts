@@ -54,7 +54,7 @@ export class ViewDataWaterBoardPage implements OnInit {
     console.log(this.waterboardA)    
   }
 
-  runMap(){ 
+   runMap(){ 
     
     console.log("PEDRO ILLAISACA");         
     const options: AppLauncherOptions = {

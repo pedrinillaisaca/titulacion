@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FotoService } from 'src/app/services/foto.service';
+import { BackButtonService } from '../../services/back-button.service';
 
 @Component({
   selector: 'app-galery',
@@ -11,7 +12,8 @@ export class GaleryPage implements OnInit {
 
   constructor(
     public servFoto:FotoService,
-    private router:Router
+    private router:Router ,
+    private backboton:BackButtonService   
     ) { }
 
   async ngOnInit() {
@@ -27,7 +29,8 @@ export class GaleryPage implements OnInit {
   }
 
   gotoRegisterWB(){
-    this.router.navigate(['/register-waterboard']);
+    this.backboton.backApp();
+    // this.router.navigate(['/register-waterboard']);
   }
 
   ngOnDestroy():void{
