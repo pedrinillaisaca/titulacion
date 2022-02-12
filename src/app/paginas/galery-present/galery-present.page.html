@@ -1,24 +1,40 @@
-<ion-header>
+<ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-title>galery-present</ion-title>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Fotografias de juntas</ion-title>
     </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
-    <div class="p-col-12">
-        <div class="card">
-            <h5>Galleria</h5>
-            <p-galleria [value]="images" [responsiveOptions]="galleriaResponsiveOptions" [containerStyle]="{'max-width': '800px', 'margin':'auto'}" [numVisible]="7" [circular]="true">
-                <ng-template pTemplate="item" let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-                </ng-template>
-                <ng-template pTemplate="thumbnail" let-item>
-                    <div class="p-grid p-nogutter p-justify-center">
-                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                    </div>
-                </ng-template>
-            </p-galleria>
-        </div>
-    </div>
+    <ion-card>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
+                    <ion-img [src]="photo.webviewPath" (click)="showActionSheet(photo, position)"></ion-img>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </ion-card>
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button (click)="llamarFoto()">
+            <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical='bottom' horizontal='left' slot="fixed">
+        <ion-fab-button (click)="gotoBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+
+
+
+
+
 
 </ion-content>

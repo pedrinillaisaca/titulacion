@@ -33,9 +33,11 @@ export class GaleryPage implements OnInit {
     // this.router.navigate(['/register-waterboard']);
   }
 
-  ngOnDestroy():void{
-    console.log('DEstroy')
-    this.servFoto.clearStorage()
+
+  async testuploadFire(){      
+    var fotos=await this.servFoto.savedFirestorage();
+    console.log(fotos)
   }
+    
 
 }

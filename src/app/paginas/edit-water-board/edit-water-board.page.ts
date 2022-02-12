@@ -8,15 +8,13 @@ import { LoadingController, MenuController, ModalController } from '@ionic/angul
 import { ApigeodecoderService } from '../../services/apigeodecoder.service';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GooglemapsComponent } from '../../componentes/googlemaps/googlemaps.component';
-import { timeout } from 'rxjs/operators';
+import { PhotoService } from '../../services/photo.service';
 
 @Component({
   selector: 'app-edit-water-board',
   templateUrl: './edit-water-board.page.html',
   styleUrls: ['./edit-water-board.page.scss'],
 })
-
-
 
 export class EditWaterBoardPage implements OnInit {
   studentForm: FormGroup
@@ -33,7 +31,7 @@ export class EditWaterBoardPage implements OnInit {
     public servWaterdb:ServWaterboardDbService,  
     public notifi:NotificacionesService,
     
-    private svrPhoto:FotoService,
+    private svrPhoto:PhotoService,
     public loadingController:LoadingController,
     public menucontroler: MenuController,             
     private modalController: ModalController,
@@ -73,17 +71,15 @@ export class EditWaterBoardPage implements OnInit {
     this.estadoW=this.waterboard.estado;
     console.log(this.waterboard);
   }
-
-
-
   
-   async regWaterBoard(){
-    this.presentLoading();
-    await this.savedPhotos();          
+  async regWaterBoard(){    
+    this.presentLoading();      
+    this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();    
+    this.loading.dismiss();
     this.waterboard.estado=this.estadoW;
     // this.getResponzablesObj();
-    this.servWaterdb.saveWaterBoard(this.waterboard)
-    this.loading.dismiss();
+    this.servWaterdb.saveWaterBoard(this.waterboard)    
+    this.svrPhoto.clearStorage();
     this.notifi.notificacionToast("Guardado Correctamente")
 
   }
@@ -102,13 +98,9 @@ export class EditWaterBoardPage implements OnInit {
     
   // }
 
-  async savedPhotos(){
-    this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();
-  }
-
 
   addPhotos(){
-    this.router.navigate(['/galery']); 
+    this.router.navigate(['/galery-present']); 
   }
 
   // ngOnDestroy():void{

@@ -7,6 +7,7 @@ import { Foto } from '../modelo/foto.interface';
 import { LoadingController } from '@ionic/angular';
 import { filter, finalize, tap } from 'rxjs/operators';
 import { resolve } from 'dns';
+import { FiltroCoincidentPipe } from '../pipes/filtro-coincident.pipe';
 
 
 
@@ -112,6 +113,7 @@ export class FotoService {
   }
 
   async startUpload(file:string): Promise <string> {
+    console.log(file)
     return new Promise( resolve=>{
       
       let byteChacarters=atob(file.split(',')[1]);

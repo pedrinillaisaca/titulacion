@@ -7,9 +7,12 @@ export class WaterBoard{
     fotos_paths: string[]=[];
     responzables: string[]=[];
     provincia:string;
+    deleted:string='false';
     ubicacion: {
         lat: number;
         lng: number;
        }
+
+
 }
   
