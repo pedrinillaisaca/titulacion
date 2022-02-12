@@ -40,7 +40,8 @@ const routes: Routes = [
   },
   {
     path: 'galery',
-    loadChildren: () => import('./paginas/galery/galery.module').then( m => m.GaleryPageModule)
+    loadChildren: () => import('./paginas/galery/galery.module').then( m => m.GaleryPageModule),
+    canActivate:[IsLoginGuard]
   },
   {
     path: 'view-data-water-board',
@@ -54,14 +55,19 @@ const routes: Routes = [
   },
   {
     path: 'pag-prueba',
-    loadChildren: () => import('./paginas/pag-prueba/pag-prueba.module').then( m => m.PagPruebaPageModule)
+    loadChildren: () => import('./paginas/pag-prueba/pag-prueba.module').then( m => m.PagPruebaPageModule),
+    canActivate:[IsLoginGuard]
+
   },
   {
     path: 'edit-water-board',
-    loadChildren: () => import('./paginas/edit-water-board/edit-water-board.module').then( m => m.EditWaterBoardPageModule)
-  },  {
+    loadChildren: () => import('./paginas/edit-water-board/edit-water-board.module').then( m => m.EditWaterBoardPageModule),
+    canActivate:[IsLoginGuard]
+  },
+  {
     path: 'galery-present',
-    loadChildren: () => import('./paginas/galery-present/galery-present.module').then( m => m.GaleryPresentPageModule)
+    loadChildren: () => import('./paginas/galery-present/galery-present.module').then( m => m.GaleryPresentPageModule),
+    canActivate:[IsLoginGuard]
   }
 
 ];

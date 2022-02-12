@@ -14,9 +14,9 @@ export class AppComponent {
     { title: 'Registro', url: '/register-waterboard', icon: 'attach' },
     { title: 'Buscar Juntas', url: '/search-waterboard', icon: 'water' },
     // { title: 'Prueba pagina', url: '/pag-prueba', icon: 'archive' },    
-    { title: 'Galeria antigua', url: '/galery', icon: 'heart' },
-    { title: 'galetia', url: '/galery-present', icon: 'heart' },
-    { title: 'informacion de la junta', url: '/view-data-water-board', icon: 'heart' },
+    // { title: 'Galeria antigua', url: '/galery', icon: 'heart' },
+    // { title: 'galetia', url: '/galery-present', icon: 'heart' },
+    // { title: 'informacion de la junta', url: '/view-data-water-board', icon: 'heart' },
   ];
   public labels = ['Cerrar Sesion'];
   constructor( 
