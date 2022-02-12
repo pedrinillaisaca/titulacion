@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>galery-present</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="p-col-12">
+        <div class="card">
+            <h5>Galleria</h5>
+            <p-galleria [value]="images" [responsiveOptions]="galleriaResponsiveOptions" [containerStyle]="{'max-width': '800px', 'margin':'auto'}" [numVisible]="7" [circular]="true">
+                <ng-template pTemplate="item" let-item>
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+                </ng-template>
+                <ng-template pTemplate="thumbnail" let-item>
+                    <div class="p-grid p-nogutter p-justify-center">
+                        <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                    </div>
+                </ng-template>
+            </p-galleria>
+        </div>
+    </div>
+
+</ion-content>

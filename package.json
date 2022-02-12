@@ -46,6 +46,8 @@
     "firebase-tools": "^9.23.0",
     "formBuilder": "^3.7.3",
     "plugin": "^0.3.3",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

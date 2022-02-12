@@ -59,7 +59,11 @@ const routes: Routes = [
   {
     path: 'edit-water-board',
     loadChildren: () => import('./paginas/edit-water-board/edit-water-board.module').then( m => m.EditWaterBoardPageModule)
+  },  {
+    path: 'galery-present',
+    loadChildren: () => import('./paginas/galery-present/galery-present.module').then( m => m.GaleryPresentPageModule)
   }
+
 ];
 
 @NgModule({

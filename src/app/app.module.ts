@@ -37,9 +37,7 @@ import { AppLauncher } from '@ionic-native/app-launcher/ngx';
   AngularFirestoreModule,
   PipesModule,
   FormsModule,
-  ReactiveFormsModule,
-  
-
+  ReactiveFormsModule,  
   ],
   providers: [
     AppLauncher,
