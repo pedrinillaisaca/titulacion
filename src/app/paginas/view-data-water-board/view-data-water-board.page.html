@@ -45,7 +45,9 @@
                 <ion-label>Responzables de la junta:</ion-label>
             </ion-col>
             <ion-col col-4>
-                <ion-label *ngFor="let responzable of waterboard.responzables">{{responzable}}</ion-label>
+                <ion-row *ngFor="let responzable of waterboard.responzables">
+                    <ion-label>{{responzable}}</ion-label>
+                </ion-row>
             </ion-col>
         </ion-row>
         <ion-row style="border-bottom: groove;">

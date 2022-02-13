@@ -21,7 +21,9 @@
                                 <ion-label>Nombre de la junta de Agua</ion-label>
                             </ion-item>
                             <ion-item>
-                                <ion-input name="name" type="name" placeholder="Ingrese el nombre de la junta" [(ngModel)]='waterboard.nombre' required></ion-input>
+                                <ion-input name="name" type="name" placeholder="Ingrese el nombre de la junta" [(ngModel)]='waterboard.nombre'>
+                                    <ion-text color="danger">*</ion-text>
+                                </ion-input>
                             </ion-item>
 
                             <ion-item>
@@ -86,10 +88,10 @@
                             </ion-item>
                             <ion-item>
                                 <!-- PILAS PARA LAS INDICACIONES -->
-                                <ion-label>Comentario</ion-label>
+                                <ion-label>Obsercaciones</ion-label>
                                 <!-- <ion-label class="normal">Comentario</ion-label> -->
                                 <!-- disabled readonly   [(ngModel)]="waterboard.comentario"-->
-                                <ion-input name="comentario" [(ngModel)]="waterboard.comentario" placeholder="En este apartado puede comentar detalles acerca de la junta de agua"></ion-input>
+                                <ion-input name="comentario" [(ngModel)]="waterboard.comentario" placeholder="En este apartado puede poner observaciones acerca de la junta de agua"></ion-input>
                             </ion-item>
                         </div>
                         <div padding>

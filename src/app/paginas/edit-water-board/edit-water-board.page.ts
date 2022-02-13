@@ -169,7 +169,6 @@ export class EditWaterBoardPage implements OnInit {
     
   }
 
-
   
   change(e){
     if(this.estadoW == false && this.estadoW == false){
