@@ -12,7 +12,7 @@ export class BackButtonService {
     ) {     
   }
 
-  backApp(){
+  public backApp(){
     this.location.back();
   }
 }

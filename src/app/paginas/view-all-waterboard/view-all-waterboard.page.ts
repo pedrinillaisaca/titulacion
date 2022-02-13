@@ -3,7 +3,7 @@ import { GoogleMap } from '@angular/google-maps';
 import { IonSlides } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppLauncherOptions, AppLauncher } from '@ionic-native/app-launcher/ngx';
-
+import { BackButtonService } from '../../services/back-button.service';
 
 interface Ubicacion {
     lat: number;
@@ -27,7 +27,8 @@ export class ViewAllWaterboardPage implements OnInit {
   constructor(    
     private route:ActivatedRoute,
     private router:Router,
-    private appLauncher: AppLauncher 
+    private appLauncher: AppLauncher,
+    private button:BackButtonService
     
   ) {    
     this.route.queryParams.subscribe(params=>{
@@ -54,28 +55,7 @@ export class ViewAllWaterboardPage implements OnInit {
     //   );
     
   }
-  
-  // loadMap() {
-  //   // create a new map by passing HTMLElement
-  //   const mapEle: HTMLElement = document.getElementById('map');
-  //   // create LatLng object
-  //   // -2.898116,
-  //   // lng: -78.99958149999999
-  //   const myLatLng = {lat: 4.658383846282959, lng: -74.09394073486328};
-  //   // create map
-  //   this.map = new google.maps.Map(mapEle, {
-  //     center: myLatLng,
-  //     zoom: 12
-  //   });
-  
-  //   google.maps.event.addListenerOnce(this.map, 'idle', () => {      
-  //     mapEle.classList.add('show-map');
-  //   });
-  // }
-
-
-  
-
+    
   // load(){
   //   const juntas= this.waterBdb.getWaterBoards();     
   //   console.log('1 juntas==>'+juntas); 
@@ -107,14 +87,9 @@ export class ViewAllWaterboardPage implements OnInit {
 
   }
 
-
-
-
   runAsc(){
     this.callerFun();
   }
-
-
   runMap(){         
     const options: AppLauncherOptions = {
     }         

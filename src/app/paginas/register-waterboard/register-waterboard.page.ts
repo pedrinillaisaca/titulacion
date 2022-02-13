@@ -40,14 +40,18 @@ export class RegisterWaterboardPage implements OnInit {
   
 
    async regWaterBoard(){
-    this.presentLoading();
-    this.waterboard.fotos_paths=await this.svrPhoto.savedFirestorage();         
-    this.loading.dismiss();
-    this.waterboard.estado=this.estadoW;    
-    this.getResponzablesObj();
-    this.servWaterdb.saveWaterBoard(this.waterboard);
-    this.svrPhoto.clearStorage();
-    this.notifi.notificacionToast("Guardado Correctamente")
+     if(this.svrPhoto.photos.length==0){
+       this.notifi.notiErrorConTiempo("Por favor tomar fotografías a la junta",3000);
+     }else{
+       this.presentLoading();
+       this.waterboard.fotos_paths=await this.svrPhoto.savedFirestorage();         
+       this.loading.dismiss();
+       this.waterboard.estado=this.estadoW;    
+       this.getResponzablesObj();
+       this.servWaterdb.saveWaterBoard(this.waterboard);
+       this.svrPhoto.clearStorage();
+       this.notifi.notificacionToast("Guardado Correctamente")
+     }
   }
 
   getResponzablesObj(){    

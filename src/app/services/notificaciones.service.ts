@@ -37,6 +37,17 @@ export class NotificacionesService {
     toast.present();
   }
 
+
+  async notiErrorConTiempo(text: string,tiempo){
+    console.log("Llamada a las notificaciones:")
+    const toast = await this.toastController.create({
+      message: '<strong>'+text+'</strong>',
+      duration: tiempo,
+      position:"bottom",
+      color:"danger"
+    });
+    toast.present();
+  }
   
 
   async confirmacion(header: string, message: string, funtion?) {
