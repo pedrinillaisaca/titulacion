@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServWaterboardDbService } from '../../services/serv-waterboard-db.service';
 import { WaterBoard } from '../../modelo/WaterBoard';
 import { NotificacionesService } from '../../services/notificaciones.service';
-import { FotoService } from '../../services/foto.service';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { ApigeodecoderService } from '../../services/apigeodecoder.service';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';

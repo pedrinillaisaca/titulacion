@@ -35,8 +35,7 @@ export class ViewAllWaterboardPage implements OnInit {
         if(this.router.getCurrentNavigation().extras.queryParams){
           let param=this.router.getCurrentNavigation().extras.queryParams.ubicationParam;        
           // this.uidWater=this.router.getCurrentNavigation().extras.queryParams.infUser; 
-          this.marcador=param;   
-          this.gotoUbication();
+          this.marcador=param;            
         }
       } catch (error) {
         console.log("Es mi primera vez");
@@ -45,7 +44,8 @@ export class ViewAllWaterboardPage implements OnInit {
     });   
   }
   
-  ngOnInit() {          
+  ngOnInit() { 
+    this.runAsc();         
     // this.juntas.forEach(
     //     function(value){
     //       console.log((value.            ));    
@@ -88,16 +88,32 @@ export class ViewAllWaterboardPage implements OnInit {
   //   );                  
   // }
 
-
-
-  gotoUbication() {  
-    console.log("ir a ubi")
-    this.map.panTo(this.marcador);    
+  async testAsync(){
+    return new Promise<void>((resolve,reject)=>{
+        //here our function should be implemented 
+        setTimeout(()=>{
+            console.log("Durante");
+            resolve();
+        ;} , 1500
+        );
+    });
   }
 
-  goback(){
-    this.router.navigate(['/search-waterboard']);
+  async callerFun(){
+    console.log("Antes");
+    await this.testAsync();
+    console.log("Despues");
+    this.map.panTo(this.marcador);
+
   }
+
+
+
+
+  runAsc(){
+    this.callerFun();
+  }
+
 
   runMap(){         
     const options: AppLauncherOptions = {
