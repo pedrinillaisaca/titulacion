@@ -38,7 +38,6 @@ export class RegisterWaterboardPage implements OnInit {
     });
   }
   
-
    async regWaterBoard(){
      if(this.svrPhoto.photos.length==0){
        this.notifi.notiErrorConTiempo("Por favor tomar fotografías a la junta",3000);

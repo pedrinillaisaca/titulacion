@@ -16,6 +16,7 @@ import { PhotoService } from '../../services/photo.service';
 })
 
 export class EditWaterBoardPage implements OnInit {
+  nombreresponzable:[''];
   studentForm: FormGroup
   estadoW:boolean=true
   loading: any;
@@ -34,6 +35,7 @@ export class EditWaterBoardPage implements OnInit {
     public loadingController:LoadingController,
     public menucontroler: MenuController,             
     private modalController: ModalController,
+  
     private servApiGeoDeco:ApigeodecoderService,
     private fb: FormBuilder
 
@@ -43,7 +45,7 @@ export class EditWaterBoardPage implements OnInit {
       try {
         if(this.router.getCurrentNavigation().extras.queryParams){
         let param=this.router.getCurrentNavigation().extras.queryParams.uidParam;        
-        // this.uidWater=this.router.getCurrentNavigation().extras.queryParams.infUser;         
+        this.uidWater=this.router.getCurrentNavigation().extras.queryParams.infUser;         
         this.uidWater=param;       
 
       }
@@ -55,19 +57,19 @@ export class EditWaterBoardPage implements OnInit {
 
   }
 
-  async ngOnInit() {        
-      // this.waterboard.uid='';
-      // this.waterboard.nombre='';
-      // this.waterboard.comentario='';
-      // this.waterboard.tipoMonitoreo='';
-      // this.waterboard.fotos_paths=[];
-      // this.waterboard.responzables=[];
-      // this.waterboard.provincia='';
-      // this.waterboard.ubicacion.lat=0;
-      // this.waterboard.ubicacion.lng=0;        
+  ngOnInit() {               
+    this.studentForm=this.fb.group({
+      nombreEscuela:[''],
+      infoStudent:this.fb.array([this.studentInfo()])
+    }); 
+    this.loadPageData();
+  }
+
+  async loadPageData(){
     this.waterboardA= await this.serWaterDB.getWaterBoardById(this.uidWater);
     this.waterboard=this.waterboardA
     this.estadoW=this.waterboard.estado;
+    this.llenarResponzables();
     console.log(this.waterboard);
   }
   
@@ -76,37 +78,17 @@ export class EditWaterBoardPage implements OnInit {
     this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();    
     this.loading.dismiss();
     this.waterboard.estado=this.estadoW;
-    // this.getResponzablesObj();
+    this.getResponzablesObj();
     this.servWaterdb.saveWaterBoard(this.waterboard)    
     this.svrPhoto.clearStorage();
     this.notifi.notificacionToast("Guardado Correctamente")
 
   }
-
-  // getResponzablesObj(){    
-  //   var aryy=this.studentForm.getRawValue().infoStudent
-  //   let listaResponsables=[]
     
-  //   for (const property in aryy) {      
-  //     listaResponsables.push(aryy[property].nombreresponzable)
-  //     // console.log(`${property}: ${array[property]}`);
-  //     // index=`${property}`
-  //   }        
-  //   this.waterboard.responzables=listaResponsables;
-  //   console.log(this.waterboard.responzables);
-    
-  // }
-
-
   addPhotos(){
     this.router.navigate(['/galery-present']); 
   }
-
-  // ngOnDestroy():void{
-  //   console.log('DEstroy')
-  //   this.svrPhoto.clearStorage()
-  // }
-
+  
   async presentLoading() {
     this.loading = await this.loadingController.create({
       cssClass: 'normal',
@@ -114,18 +96,18 @@ export class EditWaterBoardPage implements OnInit {
     });
     await this.loading.present();
   }
-
+  
   async addDirection() {
-
+    
     const ubicacion = this.waterboard.ubicacion;
     let positionInput = {  
       lat: 0,
       lng: 0,
     };
     if (ubicacion !== null) {
-        positionInput = ubicacion; 
+      positionInput = ubicacion; 
     }
-
+    
     const modalAdd  = await this.modalController.create({
       component: GooglemapsComponent,
       mode: 'ios',
@@ -133,7 +115,7 @@ export class EditWaterBoardPage implements OnInit {
       componentProps: {position: positionInput}
     });
     await modalAdd.present();
-
+    
     const {data} = await modalAdd.onWillDismiss();
     if (data) {      
       this.waterboard.ubicacion = data.pos;
@@ -141,9 +123,9 @@ export class EditWaterBoardPage implements OnInit {
       // this.waterboard.provincia=this.servApiGeoDeco.getGeoDecoder(this.waterboard.ubicacion.lat,this.waterboard.ubicacion.lng)
       this.obtenerProvincia();
     }
-
+    
   }
-
+  
   async obtenerProvincia(){
     try {          
       const prov=await this.servApiGeoDeco.getGeoDecoder(this.waterboard.ubicacion.lat,this.waterboard.ubicacion.lng)
@@ -165,33 +147,57 @@ export class EditWaterBoardPage implements OnInit {
       }else{
         this.waterboard.provincia= provin;
         // console.log(provin)
-
+        
       }
-
+      
     } catch (error) {
       console.log(`Error: =======> ${error}`);
     }
   }
-
-change(e){
-  if(this.estadoW == false && this.estadoW == false){
-    e.checked = true;
+  
+  getResponzablesObj(){    
+    var aryy=this.studentForm.getRawValue().infoStudent
+    let listaResponsables=[]
+    
+    for (const property in aryy) {      
+      listaResponsables.push(aryy[property].nombreresponzable)
+      // console.log(`${property}: ${array[property]}`);
+      // index=`${property}`
+    }        
+    this.waterboard.responzables=listaResponsables;
+    console.log(this.waterboard.responzables);
+    
   }
-}
 
 
-studentInfo(){
-  return this.fb.group({    
-    nombreresponzable:['']
-  });
-}
+  
+  change(e){
+    if(this.estadoW == false && this.estadoW == false){
+      e.checked = true;
+    }
+  }
+  
 
-getStudentInfo(): FormArray{
-  return this.studentForm.get('infoStudent') as FormArray;
+
+  studentInfo(){   
+    return this.fb.group({nombreresponzable:[]});  
+  }
+
+
+getStudentInfo(): FormArray{  
+  return this.studentForm.get('infoStudent') as FormArray
 }
 
 addStudent(){
   this.getStudentInfo().push(this.studentInfo());
+}
+
+llenarResponzables(){ 
+  this.getStudentInfo().removeAt(0);
+  for (const key in this.waterboard.responzables) {    
+    this.getStudentInfo().push(this.fb.group({nombreresponzable:[this.waterboard.responzables[key]]}));        
+  }
+  
 }
 
 removeStudent(index){
