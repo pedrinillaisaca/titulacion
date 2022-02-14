@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GooglemapsComponent } from '../../componentes/googlemaps/googlemaps.component';
 import { PhotoService } from '../../services/photo.service';
 import { Responsable } from '../../modelo/Responsable';
+import { BackButtonService } from '../../services/back-button.service';
 
 @Component({
   selector: 'app-edit-water-board',
@@ -38,10 +39,10 @@ export class EditWaterBoardPage implements OnInit {
     private modalController: ModalController,
   
     private servApiGeoDeco:ApigeodecoderService,
-    private fb: FormBuilder
-
+    private fb: FormBuilder,    
 
   ) { 
+
     this.route.queryParams.subscribe(params=>{
       try {
         if(this.router.getCurrentNavigation().extras.queryParams){
@@ -75,16 +76,39 @@ export class EditWaterBoardPage implements OnInit {
   }
   
   async regWaterBoard(){    
-    this.presentLoading();      
-    this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();    
-    this.loading.dismiss();
-    this.waterboard.estado=this.estadoW;
-    this.getResponzablesObj();
-    this.servWaterdb.saveWaterBoard(this.waterboard)    
-    this.svrPhoto.clearStorage();
-    this.notifi.notificacionToast("Guardado Correctamente")
-    this.waterboard=new WaterBoard();
+    if (this.svrPhoto.photos.length == 0) {
+      this.notifi.notiErrorConTiempo("Por favor tomar fotografías a la junta", 3000);
+    } else {
+      this.presentLoading();
+      var fotos=await this.svrPhoto.savedFirestorage()
+      this.cargarFotos(fotos);
+      this.waterboard.fotos_paths.push();
+      this.loading.dismiss();
+      this.waterboard.estado = this.estadoW;
+      this.getResponzablesObj();
+      this.servWaterdb.saveWaterBoard(this.waterboard);
+      this.svrPhoto.clearStorage();
+      this.waterboard=new WaterBoard();
+      this.router.navigate(['/search-waterboard']);
+      this.notifi.notificacionToast("Guardado Correctamente")
+    }
+    // this.presentLoading();      
+    // this.waterboard.fotos_paths= await this.svrPhoto.savedFirestorage();    
+    // this.loading.dismiss();
+    // this.waterboard.estado=this.estadoW;
+    // this.getResponzablesObj();
+    // this.servWaterdb.saveWaterBoard(this.waterboard)    
+    // this.svrPhoto.clearStorage();
+    // this.notifi.notificacionToast("Guardado Correctamente")
+    // this.waterboard=new WaterBoard();
   }
+
+  cargarFotos(fotos){
+    for (const key in fotos) {
+      this.waterboard.fotos_paths.push(fotos[key])
+    }
+  }
+  
     
   addPhotos(){
     this.router.navigate(['/galery-present']); 

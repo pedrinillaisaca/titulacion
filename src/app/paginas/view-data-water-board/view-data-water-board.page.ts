@@ -5,6 +5,7 @@ import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.ser
 
 import { AppLauncher, AppLauncherOptions } from '@ionic-native/app-launcher/ngx';
 import { NotificacionesService } from '../../services/notificaciones.service';
+import { BackButtonService } from '../../services/back-button.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class ViewDataWaterBoardPage implements OnInit {
     private route:ActivatedRoute,  
     private appLauncher: AppLauncher,   
     public notifi:NotificacionesService,
+    private servBac:BackButtonService
     ) {  
 
       this.waterboard.nombre='';
