@@ -26,7 +26,7 @@ export class SearchWaterboardPage implements OnInit {
   
   juntas: WaterBoard[] = [];    
   juntas1 = [];
-  seleccionadoProv:string='Azuay';
+  seleccionadoProv:string='';
   // juntas1: Observable<WaterBoard[]>;
   
 

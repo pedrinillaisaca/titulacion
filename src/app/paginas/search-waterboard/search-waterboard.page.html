@@ -61,10 +61,10 @@
         </div>
 
         <!--  *ngIf='filterWater.length >=3'-->
-        <div>
+        <div *ngIf='filterWater.length >=3  || seleccionadoProv !="" '>
 
-            <!-- <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater | filtroProv:seleccionadoProv"> -->
-            <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater">
+            <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater | filtroProv:seleccionadoProv">
+                <!-- <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater"> -->
 
                 <ion-item (click)="viewInforWater(junta.uid)" style="border-bottom: groove;">
                     <ion-avatar slot="start">
