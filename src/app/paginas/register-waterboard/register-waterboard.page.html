@@ -44,7 +44,12 @@
                                     <ion-row>
                                         <ion-col>
                                             <ion-item [formGroupName]='i'>
-                                                <ion-input ngDefaultControl formControlName="nombreresponzable" placeholder='Escriba aqui el nombre los responsables' required='true'></ion-input>
+                                                <ion-input ngDefaultControl formControlName="nombre" placeholder='nombre' required='true'></ion-input>
+                                            </ion-item>
+                                        </ion-col>
+                                        <ion-col>
+                                            <ion-item [formGroupName]='i'>
+                                                <ion-input ngDefaultControl formControlName="apellido" placeholder='apellido' required='true'></ion-input>
                                             </ion-item>
                                         </ion-col>
                                         <ion-icon class="mat-icon" name='trash-outline' (click)='removeStudent(i)'></ion-icon>
@@ -88,7 +93,7 @@
                             </ion-item>
                             <ion-item>
                                 <!-- PILAS PARA LAS INDICACIONES -->
-                                <ion-label>Obsercaciones</ion-label>
+                                <ion-label>observaciones</ion-label>
                                 <!-- <ion-label class="normal">Comentario</ion-label> -->
                                 <!-- disabled readonly   [(ngModel)]="waterboard.comentario"-->
                                 <ion-input name="comentario" [(ngModel)]="waterboard.comentario" placeholder="En este apartado puede poner observaciones acerca de la junta de agua"></ion-input>

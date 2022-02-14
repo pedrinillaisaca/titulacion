@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Fotos de la junta</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-tabs>
+        <ion-tab>
+            <ion-slides pager="true" pager="false" #mySlider>
+                <ion-slide *ngFor="let image of waterboard.fotos_paths">
+                    <ion-img [src]='image'></ion-img>
+                </ion-slide>
+
+            </ion-slides>
+        </ion-tab>
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button (click)="swipePrev()">
+                <ion-icon name="arrow-undo-outline"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button (click)="swipeNext()">
+                <ion-icon name="arrow-redo-outline"></ion-icon>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+    <!-- <ion-slides>
+        <ion-slide *ngFor="let image of waterboard.fotos_paths">
+            <ion-card>
+                <ion-item>
+                    <ion-thumbnail slot="start">
+                        <img [src]="image">
+                    </ion-thumbnail>
+                </ion-item>
+            </ion-card>
+        </ion-slide>
+    </ion-slides> -->
+
+
+</ion-content>

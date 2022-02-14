@@ -8,6 +8,7 @@ import { ApigeodecoderService } from '../../services/apigeodecoder.service';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GooglemapsComponent } from '../../componentes/googlemaps/googlemaps.component';
 import { PhotoService } from '../../services/photo.service';
+import { Responsable } from '../../modelo/Responsable';
 
 @Component({
   selector: 'app-edit-water-board',
@@ -155,19 +156,24 @@ export class EditWaterBoardPage implements OnInit {
     }
   }
   
-  getResponzablesObj(){    
-    var aryy=this.studentForm.getRawValue().infoStudent
-    let listaResponsables=[]
+
+  getResponzablesObj() {
+    var aryy = this.studentForm.getRawValue().infoStudent
+    let listaResponsables:string[]=[]
     
-    for (const property in aryy) {      
-      listaResponsables.push(aryy[property].nombreresponzable)
-      // console.log(`${property}: ${array[property]}`);
-      // index=`${property}`
-    }        
-    this.waterboard.responzables=listaResponsables;
-    console.log(this.waterboard.responzables);
-    
+    for (const property in aryy) {
+      var res=''
+      res+=aryy[property].nombre;//esto hay qu
+      res+=" "
+      res+=aryy[property].apellido;
+      listaResponsables.push(res); 
+      this.removeStudent(property);
+    }
+    this.waterboard.listaResponsables = listaResponsables;
+    console.log(this.waterboard.listaResponsables);
+
   }
+
 
   
   change(e){
@@ -178,10 +184,12 @@ export class EditWaterBoardPage implements OnInit {
   
 
 
-  studentInfo(){   
-    return this.fb.group({nombreresponzable:[]});  
+  studentInfo() {
+    return this.fb.group({
+      nombre: [''],
+      apellido: ['']
+    });
   }
-
 
 getStudentInfo(): FormArray{  
   return this.studentForm.get('infoStudent') as FormArray
@@ -193,8 +201,9 @@ addStudent(){
 
 llenarResponzables(){ 
   this.getStudentInfo().removeAt(0);
-  for (const key in this.waterboard.responzables) {    
-    this.getStudentInfo().push(this.fb.group({nombreresponzable:[this.waterboard.responzables[key]]}));        
+  for (const key in this.waterboard.listaResponsables) {    
+    this.getStudentInfo().push(this.fb.group({nombre:[this.waterboard.listaResponsables[key].split(" ")[0]],apellido:[this.waterboard.listaResponsables[key].split(" ")[1]]}));        
+    // this.getStudentInfo().push(this.fb.group({}));        
   }
   
 }

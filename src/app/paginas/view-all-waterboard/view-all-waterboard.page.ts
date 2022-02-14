@@ -84,6 +84,7 @@ export class ViewAllWaterboardPage implements OnInit {
     await this.testAsync();
     console.log("Despues");
     this.map.panTo(this.marcador);
+    this.map.zoom=-100
 
   }
 

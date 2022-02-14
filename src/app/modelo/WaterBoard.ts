@@ -1,3 +1,4 @@
+import { Responsable } from './Responsable';
 export class WaterBoard{
     uid:string;
     nombre:string;    
@@ -5,7 +6,7 @@ export class WaterBoard{
     comentario:string;
     tipoMonitoreo:string //manual | auto | ninguno 
     fotos_paths: string[]=[];
-    responzables: string[]=[];
+    listaResponsables:string[]=[]
     provincia:string;
     deleted:string='false';
     ubicacion: {

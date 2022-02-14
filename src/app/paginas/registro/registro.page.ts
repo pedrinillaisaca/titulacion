@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from "@angular/forms"
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { Usuario } from '../../modelo/usuario';
 import { User } from '../../shared/user.interface';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -33,7 +32,7 @@ export class RegistroPage implements OnInit {
   
   formGroup: FormGroup | null = null;
   pedro:string
-  usuario:Usuario=new Usuario();
+  
   constructor(
     private authSvc:AuthService,
     private afs: AngularFirestore,
@@ -69,7 +68,7 @@ export class RegistroPage implements OnInit {
     const nombreUser = this.formGroup.get('nombreUser').value as string;    
     try {
       const user = await this.authSvc.register(email,password);  
-      this.updateUserData(user,nombreUser);    
+      // this.updateUserData(user,nombreUser);    
       if (user) {
         const isVerified = this.authSvc.isEmailVerified(user);
         this.redireccionar(isVerified,user);

@@ -9,6 +9,7 @@ import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.service';
 import { PhotoService } from '../../services/photo.service';
 
+
 @Component({
   selector: 'app-register-waterboard',
   templateUrl: './register-waterboard.page.html',
@@ -56,15 +57,18 @@ export class RegisterWaterboardPage implements OnInit {
 
   getResponzablesObj() {
     var aryy = this.studentForm.getRawValue().infoStudent
-    let listaResponsables = []
-
+    let listaResponsables:string[]=[]
+    
     for (const property in aryy) {
-      listaResponsables.push(aryy[property].nombreresponzable)
-      // console.log(`${property}: ${array[property]}`);
-      // index=`${property}`
+      var res=''
+      res+=aryy[property].nombre;//esto hay qu
+      res+=" "
+      res+=aryy[property].apellido;
+      listaResponsables.push(res); 
+      this.removeStudent(property);
     }
-    this.waterboard.responzables = listaResponsables;
-    console.log(this.waterboard.responzables);
+    this.waterboard.listaResponsables = listaResponsables;
+    console.log(this.waterboard.listaResponsables);
 
   }
 
@@ -153,7 +157,8 @@ export class RegisterWaterboardPage implements OnInit {
 
   studentInfo() {
     return this.fb.group({
-      nombreresponzable: ['']
+      nombre: [''],
+      apellido: ['']
     });
   }
 

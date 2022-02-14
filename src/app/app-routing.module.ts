@@ -68,7 +68,11 @@ const routes: Routes = [
     path: 'galery-present',
     loadChildren: () => import('./paginas/galery-present/galery-present.module').then( m => m.GaleryPresentPageModule),
     canActivate:[IsLoginGuard]
+  },  {
+    path: 'view-image',
+    loadChildren: () => import('./paginas/view-image/view-image.module').then( m => m.ViewImagePageModule)
   }
+
 
 ];
 

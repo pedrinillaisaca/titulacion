@@ -17,7 +17,11 @@ export class ViewDataWaterBoardPage implements OnInit {
   button_bool:boolean=true;
   waterboard:WaterBoard=new WaterBoard();//incializamos el objeto
   waterboardA:any;
-  uidWater:string="DrtestwbHb8dZELmkjmh";
+  uidWater:string="";
+  pswpElement = document.querySelectorAll('.pswp')[0];
+
+
+  
 
   constructor(
     private servWater: ServWaterboardDbService,
@@ -51,10 +55,11 @@ export class ViewDataWaterBoardPage implements OnInit {
   async ngOnInit() {      
     this.waterboardA= await this.servWater.getWaterBoardById(this.uidWater);
     this.waterboard=this.waterboardA;
-    console.log(this.waterboardA)    
+    console.log(this.waterboardA) 
+      
   }
 
-   runMap(){ 
+  runMap(){ 
     
     console.log("PEDRO ILLAISACA");         
     const options: AppLauncherOptions = {
@@ -69,9 +74,7 @@ export class ViewDataWaterBoardPage implements OnInit {
       .catch((error: any) => {console.log("Error desconicido")}      
       );           
   }
- 
-  
-  
+     
 
   funcionEnable(){
     this.button_bool=!this.button_bool;
@@ -94,7 +97,12 @@ export class ViewDataWaterBoardPage implements OnInit {
 
   
   viewImages(){
-    console.log("open galery")
+    let params: NavigationExtras={
+      queryParams:{
+        uid: this.uidWater
+      }
+    }          
+    this.router.navigate(["/view-image"],params);   
   }
 
 
@@ -113,5 +121,6 @@ export class ViewDataWaterBoardPage implements OnInit {
     this.router.navigate(["/edit-water-board"],params);         
 
   }
+  
 
 }
