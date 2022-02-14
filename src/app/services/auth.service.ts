@@ -54,8 +54,7 @@ export class AuthService {
   
     async register(email: string, password: string): Promise<User> {
       try {
-        const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
-        await this.sendVerifcationEmail();
+        const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);      
         // this.notificationServ.confirmacion("Registro Existoso","");
         return user;
       } catch (error) {

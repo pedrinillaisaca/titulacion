@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,6 +15,7 @@ import { User } from 'src/app/shared/user.interface';
 })
 export class LoginPage implements OnInit {
   
+  passwordTypeInput  =  'password';
   
   user$: Observable<User>= this.authSvc.afAuth.user;
   constructor(
@@ -84,6 +85,8 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/msj-confirm']);
     }
   }
+
+
 
 
   

@@ -1,59 +1,21 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Confirmación</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Confirmación</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content *ngIf="user$ | async as user">
-  <ion-row>
-      <ion-col>
-          <h2>Gracias por registrase!</h2>
-          <p>Enviamos un correo de confirmacion a la cuenta <strong>{{user.email}}</strong></p>
-
-      </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-        <ion-button type="submit" color="primary" expand="block" (click)="onSendEmail()">Reenviar confirmación</ion-button>
-    </ion-col>
-    <ion-col>
-        <ion-button type="submit" color="primary" expand="block" (click)="redirectLogin()">Iniciar Sesesion</ion-button>
-    </ion-col>
-  </ion-row>
+    <ion-card>
+        <div class="box">
+            <h2>Gracias por registrase!</h2>
+            <p>Enviamos un correo de confirmacion a la cuenta </p>
+            <p><strong>{{user.email}}</strong></p>
+            <ion-button type="submit" color="primary" expand="block" (click)="onSendEmail()">Reenviar confirmación</ion-button>
+            <ion-button type="submit" color="primary" expand="block" (click)="redirectLogin()">Iniciar Sesesion</ion-button>
+        </div>
+    </ion-card>
 </ion-content>
-
-<!-- <ion-content *ngIf="user$ | async as user">
-    <form  #form="ngForm" (ngSubmit)="onSendEmail(form)">
-      <ion-grid>
-        <ion-row color="primary" justify-content-center>
-          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-            <div text-center>
-              <h3>Gracias por registrase!</h3>
-              <h2>Por favor comfirmar su correo electrinico <strong>{{user.email}}</strong></h2>
-            </div>            
-              <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Reenviar</ion-button>            
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-</ion-content>
-
-<ion-content>
-    <form  #form="ngForm" (ngSubmit)="redirectLogin(form)">
-      <ion-grid>
-        <ion-row color="primary" justify-content-center>
-          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">           
-              <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Iniciar Sesion</ion-button>            
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-</ion-content>
-   -->

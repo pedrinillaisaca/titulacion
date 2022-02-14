@@ -82,7 +82,7 @@ export class EditWaterBoardPage implements OnInit {
     this.servWaterdb.saveWaterBoard(this.waterboard)    
     this.svrPhoto.clearStorage();
     this.notifi.notificacionToast("Guardado Correctamente")
-
+    this.waterboard=new WaterBoard();
   }
     
   addPhotos(){
