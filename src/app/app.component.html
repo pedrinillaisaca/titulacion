@@ -3,21 +3,33 @@
         <ion-menu contentId="main-content" type="overlay">
             <ion-content>
                 <ion-list id="inbox-list">
-                    <ion-list-header>APP TITULACIÓN</ion-list-header>
-                    <ion-note>Tesis</ion-note>
+                    <ion-list-header>STDMJAPE WEB</ion-list-header>
+                    <img src="../assets/iconweb.jpg" alt="">
+                    <label *ngIf="user$ | async as user"><h2>Bienvenido:  Pedro Illaisaca </h2></label>
+
+                    <ion-note *ngIf="user$ | async as user">{{user.email}}</ion-note>
                     <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
                         <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
                             <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
                             <ion-label>{{ p.title }}</ion-label>
                         </ion-item>
+
                     </ion-menu-toggle>
                 </ion-list>
                 <ion-list id="labels-list">
                     <ion-list-header>Aplicación</ion-list-header>
-                    <ion-item *ngFor="let label of labels" lines="none">
-                        <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-                        <ion-label (click)="logout()">{{ label }}</ion-label>
-                    </ion-item>
+                    <ion-menu-toggle auto-hide="false" *ngFor="let p of labels; let i = index">
+
+                        <ion-item *ngIf="p.hiden==false && user$ | async as user" (click)="logout()" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+                            <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                            <ion-label>{{ p.title }}</ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="p.hiden" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+                            <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                            <ion-label>{{ p.title }}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+
                 </ion-list>
             </ion-content>
         </ion-menu>

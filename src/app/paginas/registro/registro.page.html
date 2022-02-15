@@ -19,6 +19,10 @@
                         </div>
                         <div>
                             <ion-item>
+                                <ion-label position="stacked" name='name'>Nombre de usuario</ion-label>
+                                <ion-input name="name" type="name" placeholder="Nombre de usuario" [formControl]="formGroup.controls['name']"></ion-input>
+                            </ion-item>
+                            <ion-item>
                                 <ion-label position="stacked" name='email'>Correo Electrónico</ion-label>
                                 <ion-input name="email" type="email" placeholder="Correo Electrónico" [formControl]="formGroup.controls['email']"></ion-input>
                             </ion-item>
@@ -29,6 +33,7 @@
                                 </ion-input>
                             </ion-item>
                             <ion-item>
+                                <ion-label name='password' position="stacked">Repetir Contraseña</ion-label>
                                 <ion-input name="confirm" type="password" placeholder="Repita la contraseña" [formControl]="formGroup.controls['repeat_password']"></ion-input>
                             </ion-item>
                         </div>
@@ -42,7 +47,7 @@
     </ion-card>
 
     <div class="texto">
-        <p><a routerLink="/login">Si ya tienes una cuenta puedes iniciar sesion </a></p>
+        <p><a routerLink="/login">Si ya tienes una cuenta puedes iniciar sesión </a></p>
         <p><a routerLink="/recuperar-contrasenia">Olvidaste tu contraseña</a></p>
     </div>
 

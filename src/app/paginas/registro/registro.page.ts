@@ -7,6 +7,7 @@ import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/compat
 
 
 
+
 function  equalsValidator(otherControl: AbstractControl): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => {
     const value: any = control.value;
@@ -37,14 +38,14 @@ export class RegistroPage implements OnInit {
     private authSvc:AuthService,
     private afs: AngularFirestore,
     private router:Router,
-    private fb: FormBuilder
+    private fb: FormBuilder    
     
   ) {
     this.formGroup = this.fb.group({
       password: ['', [Validators.required]],
       repeat_password: '',
       email:'',
-      nombreUser:''
+      name:''
     });
 
     this.formGroup.get('repeat_password').setValidators(
@@ -57,18 +58,13 @@ export class RegistroPage implements OnInit {
   
   }
 
-  onSubmit(){
-    
-
-  }
 
   async registro(){
     const password = this.formGroup.get('password').value as string;  
     const email = this.formGroup.get('email').value as string;    
-    const nombreUser = this.formGroup.get('nombreUser').value as string;    
+    const nombreUser = this.formGroup.get('name').value as string;    
     try {
-      const user = await this.authSvc.register(email,password);  
-      // this.updateUserData(user,nombreUser);    
+      const user = await this.authSvc.registerAndUser(email,password,nombreUser);           
       if (user) {
         const isVerified = this.authSvc.isEmailVerified(user);
         this.redireccionar(isVerified,user);

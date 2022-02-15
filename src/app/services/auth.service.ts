@@ -62,6 +62,33 @@ export class AuthService {
         this.notificationServ.notificacionToasError(error.message);
       }
     }
+
+
+    async registerAndUser(email: string, password: string,name:string): Promise<User> {
+      try {
+        const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);   
+        
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+  
+        const data: User = {
+          uid: user.uid,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          displayName: name,
+        };    
+        userRef.set(data, { merge: true });                      
+        return user;
+      } catch (error) {
+        console.log('Error->', error);
+        this.notificationServ.notificacionToasError(error.message);
+      }
+
+
+    }
+    
+
+
+
   
     async login(email: string, password: string): Promise<User> {
       try {

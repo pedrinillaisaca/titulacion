@@ -71,6 +71,22 @@ const routes: Routes = [
   },  {
     path: 'view-image',
     loadChildren: () => import('./paginas/view-image/view-image.module').then( m => m.ViewImagePageModule)
+  },
+  {
+    path: 'not-fount',
+    loadChildren: () => import('./paginas/not-fount/not-fount.module').then( m => m.NotFountPageModule)
+  },
+  {
+    path: 'nosotros',
+    loadChildren: () => import('./paginas/nosotros/nosotros.module').then( m => m.NosotrosPageModule)
+  },
+  {
+    path: 'desarolladores',
+    loadChildren: () => import('./paginas/desarolladores/desarolladores.module').then( m => m.DesarolladoresPageModule)
+  },
+  {
+    path: 'version',
+    loadChildren: () => import('./paginas/version/version.module').then( m => m.VersionPageModule)
   }
 
 

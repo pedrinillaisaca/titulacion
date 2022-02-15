@@ -1,0 +1,31 @@
+img.pequenia {
+    width: 80px;
+    height: 80px;
+}
+
+.centrar {
+    font-size: large;
+    font-family: "Segoe UI";
+    padding-right: 20%;
+    padding-left: 20%;
+}
+
+.cabeza {
+    text-align: center;
+    font-size: large;
+    font-family: "Segoe UI";
+    padding-right: 20%;
+    padding-left: 20%;
+}
+
+.paragraph {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.resalte {
+    color: #17232A;
+    font-weight: 500;
+}

@@ -9,22 +9,25 @@
 
 <ion-content>
     <ion-card>
-
+        <!-- -->
         <div class="box">
             <!-- <ion-item>
             </ion-item> -->
-            <ion-label>
-                Ingresa el nombre de una junta
-            </ion-label>
-            <div class="container-1">
+            <!-- <ion-label>
+                <h1>Ingresa el nombre de una junta</h1>
+            </ion-label> -->
+            <ion-searchbar type="search" id="search" [(ngModel)]="filterWater" placeholder="Ingrese en nombre de la junta " name="filterWater"></ion-searchbar>
+            <!-- <ion-input type="search" id="search" class="form-control" name="filterWater" placeholder="Ingrese en nombre de la junta " [(ngModel)]="filterWater"/>                 -->
+            <!-- <div class="container-1">
                 <span class="icon"><i class="fa fa-search"></i></span>
                 <input type="search" id="search" [(ngModel)]="filterWater" placeholder="Ingrese en nombre de la junta " name="filterWater" />
-                <!-- <ion-input type="search" id="search" class="form-control" name="filterWater" placeholder="Ingrese en nombre de la junta " [(ngModel)]="filterWater"/>                 -->
-            </div>
-            <br>
+            </div> -->
+        </div>
+
+        <div class="box">
             <ion-list>
                 <!-- <ion-list-header>
-                </ion-list-header> -->
+                    </ion-list-header> -->
                 <ion-label>
                     Selecciona una provincia
                 </ion-label>
@@ -32,6 +35,7 @@
                 <ion-item>
                     <ion-label>Provincia</ion-label>
                     <ion-select value="seleccionadoProv" [(ngModel)]="seleccionadoProv" name="seleccionadoProv" interface="popover" placeholder="Selecione una provincia">
+                        <ion-select-option value="">Ninguna</ion-select-option>
                         <ion-select-option value="Esmeraldas">Esmeraldas</ion-select-option>
                         <ion-select-option value="Manabí">Manabí</ion-select-option>
                         <ion-select-option value="Los Ríos">Los Ríos</ion-select-option>
@@ -60,23 +64,33 @@
             </ion-list>
         </div>
 
+
         <!--  *ngIf='filterWater.length >=3'-->
+
+
+    </ion-card>
+
+    <ion-card>
         <div *ngIf='filterWater.length >=3  || seleccionadoProv !="" '>
 
             <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater | filtroProv:seleccionadoProv">
                 <!-- <ion-item-sliding *ngFor="let junta of juntas1 | filtroCoincident:filterWater"> -->
 
-                <ion-item (click)="viewInforWater(junta.uid)" style="border-bottom: groove;">
-                    <ion-avatar slot="start">
-                        <img [src]=junta.fotos_paths[0]>
-                    </ion-avatar>
-                    <ion-label>
-                        <h2>{{junta.nombre}}</h2>
-                    </ion-label>
+                <ion-item (click)="viewInforWater(junta.uid)" style="border-bottom: groove; text-align: center;">
+                    <!-- style="text-align: center;" -->
+                    <div>
+
+                        <ion-avatar slot="start">
+                            <img [src]=junta.fotos_paths[0]>
+                        </ion-avatar>
+                        <ion-label>
+                            <h2>{{junta.nombre}}</h2>
+                        </ion-label>
+                    </div>
                 </ion-item>
+                <ion-reorder slot="end"></ion-reorder>
             </ion-item-sliding>
         </div>
-
     </ion-card>
 
     <!-- <ion-button (click)="verTipo()" size="large" type="submit" expand="block">Editar junta</ion-button>
