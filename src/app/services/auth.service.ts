@@ -85,6 +85,10 @@ export class AuthService {
 
 
     }
+
+    getUserById(uid: string) :Observable<any>{    
+      return this.afs.collection("users", ref => ref.where('uid', '==', uid)).valueChanges();
+    }
     
 
 

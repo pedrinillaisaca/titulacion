@@ -101,18 +101,12 @@ export class PhotoService {
 
   // Read camera photo into base64 format based on the platform the app is running on
 
-  async sub64(blob){
-    console.log('durante')
-    return await this.convertBlobToBase64(blob) as string;
-  } 
+
 
   private async readAsBase64(cameraPhoto: Photo) {
-    const response = await fetch(cameraPhoto.webPath!);
-    const blob = await response.blob();
-    console.log('antes')
-    const pedro = await this.sub64(blob);  
-    console.log('despues')    
-    return pedro;
+    const response = await fetch(cameraPhoto.webPath!)
+    const blob = await response.blob()
+    return await this.convertBlobToBase64(blob) as string
   }
 
   convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
@@ -156,6 +150,7 @@ export class PhotoService {
 
   async startUpload(file: string): Promise<string> {
     return new Promise(resolve => {
+      console.log(file);
       var t=file.split(',')[1];      
       let byteChacarters = atob(t);
       const path = `images/${new Date().getTime()}.jpg`;

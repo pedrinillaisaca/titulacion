@@ -23,6 +23,7 @@ export class GaleryPresentPage implements OnInit {
 
     async ngOnInit() {
       await this.photoService.loadSaved();
+      this.photoService.clearStorage();
     }
   
     public async showActionSheet(photo: UserPhoto, position: number) {
