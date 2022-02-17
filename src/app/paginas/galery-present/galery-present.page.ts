@@ -50,7 +50,7 @@ export class GaleryPresentPage implements OnInit {
 
     gotoBack(){
       // this.photoService.savedFirestorage();
-      this.photoService.returnFotos();
+      // this.photoService.returnFotos();
       this.backboton.backApp();
     }
    
