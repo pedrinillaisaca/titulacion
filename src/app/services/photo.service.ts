@@ -56,7 +56,7 @@ export class PhotoService {
     });
             
     this.photos.unshift(await this.savePicture(capturedPhoto));             
-    console.log(this.photos)
+    
     
     // Cache all photo data for future retrieval
     Storage.set({
@@ -149,8 +149,7 @@ export class PhotoService {
   }
 
   async startUpload(file: string): Promise<string> {
-    return new Promise(resolve => {
-      console.log(file);
+    return new Promise(resolve => {      
       var t=file.split(',')[1];      
       let byteChacarters = atob(t);
       const path = `images/${new Date().getTime()}.jpg`;

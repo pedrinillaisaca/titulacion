@@ -8,8 +8,7 @@ import { ApigeodecoderService } from '../../services/apigeodecoder.service';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { GooglemapsComponent } from '../../componentes/googlemaps/googlemaps.component';
 import { PhotoService } from '../../services/photo.service';
-import { Responsable } from '../../modelo/Responsable';
-import { BackButtonService } from '../../services/back-button.service';
+
 
 @Component({
   selector: 'app-edit-water-board',
