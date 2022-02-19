@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from './shared/user.interface';
-import { error } from 'console';
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -36,28 +39,18 @@ export class AppComponent {
    
   
   constructor( 
-    private authSvc:AuthService,    
-  ) {
-
-
-
-  }
+    private authSvc:AuthService,            
+  ) { }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+  
 
-    
-            
-    this.user$.subscribe(
-      x=> {        
-        console.log(x.email)        ;
-      },
-      erro=>console.error("erre",erro),
-      ()=>console.log("la perra")
-    );
+
+    // const path = window.location.pathname.split('folder/')[1];
+    // if (path !== undefined) {
+    //   this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+    // }
+
     
     
   }
