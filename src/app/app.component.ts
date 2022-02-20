@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   ];
 
   public labels = [
-    { title: 'Cerrar Sesion', url: '/login', icon: 'exit' , hiden: false},
+    { title: 'Cerrar Sesión', url: '/login', icon: 'exit' , hiden: false},
     { title: 'Nosotros', url: '/nosotros', icon: 'business' , hiden: true},
     { title: 'Desarrolladores', url: '/desarolladores', icon: 'build' , hiden: true},
     { title: 'Ayuda', url: '/version', icon: 'help' , hiden: true}  
