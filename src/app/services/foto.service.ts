@@ -30,7 +30,7 @@ export class FotoService {
     const fotoCapturada = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
-      quality: 100
+      quality: 50
     })
 
     // this.fotos.unshift({

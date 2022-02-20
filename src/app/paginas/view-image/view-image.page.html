@@ -12,7 +12,10 @@
         <ion-tab>
             <ion-slides pager="true" pager="false" #mySlider>
                 <ion-slide *ngFor="let image of waterboard.fotos_paths">
-                    <ion-img [src]='image'></ion-img>
+                    <!-- <ion-card>
+                    </ion-card> -->
+                    <ion-img class="pic" [src]='image'></ion-img>
+                    <ion-img class="zoom" [src]='image'></ion-img>
                 </ion-slide>
 
             </ion-slides>
