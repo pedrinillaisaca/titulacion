@@ -1,9 +1,17 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>notFount</ion-title>
-  </ion-toolbar>
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>No encontrado </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <div class="centrar">
+        <h1>No encontrado</h1>
+        <ion-icon class="icon" name="alert-circle-sharp"></ion-icon>
+        <h2><a routerLink="/login">Regresar a la Aplicación </a></h2>
+    </div>
 </ion-content>

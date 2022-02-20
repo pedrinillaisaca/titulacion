@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  },
+  },  
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
@@ -68,7 +68,8 @@ const routes: Routes = [
     path: 'galery-present',
     loadChildren: () => import('./paginas/galery-present/galery-present.module').then( m => m.GaleryPresentPageModule),
     canActivate:[IsLoginGuard]
-  },  {
+  },
+  {
     path: 'view-image',
     loadChildren: () => import('./paginas/view-image/view-image.module').then( m => m.ViewImagePageModule)
   },
@@ -87,9 +88,11 @@ const routes: Routes = [
   {
     path: 'version',
     loadChildren: () => import('./paginas/version/version.module').then( m => m.VersionPageModule)
-  }
-
-
+  },
+  {
+    path: '**',
+    redirectTo: '/not-fount'    
+  },
 ];
 
 @NgModule({
