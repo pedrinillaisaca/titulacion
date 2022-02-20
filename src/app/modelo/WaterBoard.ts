@@ -9,6 +9,8 @@ export class WaterBoard{
     listaResponsables:string[]=[]
     provincia:string;
     deleted:string='false';
+    registradorName:string;    
+    registradorUid:string;    
     ubicacion: {
         lat: number;
         lng: number;

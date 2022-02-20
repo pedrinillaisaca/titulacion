@@ -28,23 +28,27 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+try {  
+  this.user$.subscribe(x=>{
+    if(x.uid)
+    this.router.navigate(['/search-waterboard']);      
+  });
+} catch (error) {
+  
+}
   }
   async login(param){        
     // const user = await this.authSvc.login(this.loginInfo.correo,this.loginInfo.contrasenia);
     const user = await this.authSvc.login(param.value.email,param.value.password);
     
-    if (user) {
-      const verificacion=this.authSvc.isEmailVerified(user);           
-      this.redirectUser(verificacion);      
-      console.log("Usuario-> "+user)        
-      //this.redirectUser(isVerified);
+    if (user) {//TENER CUIDADO CON ESTO 
+      this.redirectUser(this.authSvc.isEmailVerified(user));                
     }else{
-      this.notificaciones.notificacionToasError("Error en credenciales o cuenta no verificada.");
+      this.notificaciones.notificacionToasError("Error en credenciales o cuenta no verificada");
     }
     
   }  
   
-
     
 // async onLoginGoogle() {
 //     try {
@@ -80,7 +84,7 @@ export class LoginPage implements OnInit {
 
   private redirectUser(isVerified: boolean): void {
     if (isVerified) {
-      this.router.navigate(['/search-waterboard']);      
+      this.router.navigate(['/search-waterboard']);  
     } else {
       this.router.navigate(['/msj-confirm']);
     }

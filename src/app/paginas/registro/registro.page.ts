@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from '../../shared/user.interface';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/compat/firestore';
+import { NotificacionesService } from '../../services/notificaciones.service';
+
 
 
 
@@ -30,22 +32,25 @@ export const CustomValidators = {
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  
+  loading: any;
   formGroup: FormGroup | null = null;
   pedro:string
+  LoadingController: any;
   
   constructor(
     private authSvc:AuthService,
     private afs: AngularFirestore,
     private router:Router,
-    private fb: FormBuilder    
+    private fb: FormBuilder,
+    private servnoti:NotificacionesService
     
   ) {
     this.formGroup = this.fb.group({
       password: ['', [Validators.required]],
       repeat_password: '',
       email:'',
-      name:''
+      name:'',
+      lastname:''
     });
 
     this.formGroup.get('repeat_password').setValidators(
@@ -59,28 +64,29 @@ export class RegistroPage implements OnInit {
   }
 
 
-  async registro(){
+  async registro(): Promise<void>{
     const password = this.formGroup.get('password').value as string;  
     const email = this.formGroup.get('email').value as string;    
-    const nombreUser = this.formGroup.get('name').value as string;    
-    try {
-      const user = await this.authSvc.registerAndUser(email,password,nombreUser);           
+    const name = this.formGroup.get('name').value as string;   
+    const lastname = this.formGroup.get('lastname').value as string;   
+
+    try {         
+      const user = await this.authSvc.registerComplete(email.trim(),password.trim(),name.trim(),lastname.trim());             
+      // this.router.navigate(["/login"])
+      // this.servnoti.notiErrorConTiempo("Registro Exitoso",2000);
       if (user) {
-        const isVerified = this.authSvc.isEmailVerified(user);
-        this.redireccionar(isVerified,user);
-        console.log("User->",user)        
-        //this.redirectUser(isVerified);
+        this.redireccionar(this.authSvc.isEmailVerified(user))
       }
     } catch (error) {
       console.log('Error', error);
     }
   }  
-  private redireccionar (isVerified: boolean,user:any): void{
+  private redireccionar (isVerified: boolean): void{
     if(isVerified){
       console.log("VErificado")
-      this.router.navigate(["/view-user"]);//NO SE VA A USAR
-    }else{
-      this.router.navigate(["/msj-confirm"]);//esto es muy interesante
+      this.router.navigate(["/login"]);//NO SE VA A USAR
+    }else{      
+      this.router.navigate(["/msj-confirm"])        
       // this.registrarConfiguracion(user.uid);
     }
   }
@@ -94,6 +100,13 @@ export class RegistroPage implements OnInit {
       displayName: nombreUsuario,
     };  
 
+  }
+  async presentLoading() {
+    this.loading = await this.LoadingController.create({
+      cssClass: 'normal',
+      message: 'Registrando...',
+    });
+    await this.loading.present();
   }
 
 

@@ -6,12 +6,14 @@ export const environment = {
   production: false,
   ApiKeyGoogleMaps: 'AIzaSyAk8tRQ9RP98I_NSLD10PjoQAsvt-Enpn0',
   firebase : {
-    apiKey: "AIzaSyBtcsLKqtumKdjlAWMp-d9A0CH8AfnPNG4",
-    authDomain: "tesisprueba12-e5dba.firebaseapp.com",
-    projectId: "tesisprueba12-e5dba",
-    storageBucket: "tesisprueba12-e5dba.appspot.com",
-    messagingSenderId: "326973151333",
-    appId: "1:326973151333:web:8e095b4a09bfbc86cc8e8c"
+    apiKey: "AIzaSyB9hkHkJkXk2aDi_QAMKSav3XhPjE63rek",
+  authDomain: "pruebatesis13.firebaseapp.com",
+  projectId: "pruebatesis13",
+  storageBucket: "pruebatesis13.appspot.com",
+  messagingSenderId: "798806666417",
+  appId: "1:798806666417:web:a7dcb9408026e87c844690"
   }
+
+
 };
 

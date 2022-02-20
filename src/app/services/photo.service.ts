@@ -151,7 +151,7 @@ export class PhotoService {
 
   async startUpload(file: string): Promise<string> {
     return new Promise(resolve => {
-      console.log(file);
+
       var t=file.split(',')[1];      
       let byteChacarters = atob(t);
       const path = `images/${new Date().getTime()}.jpg`;

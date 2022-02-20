@@ -7,7 +7,8 @@
 
                     <img class="mediana" src="../assets/imageMenu.jpeg" alt="">
                     <!-- <label *ngIf="user$ | async as user"><h2 >Bienvenido:  Pedro Illaisaca </h2></label> -->
-                    <label *ngIf="user$ | async as user"><h2 >Bienvenido: Pedro Illaisaca </h2><ion-note>{{user.email}}</ion-note></label>
+                    <!-- <label *ngIf="user1$ | async as user"><h2 >Bienvenido: {{user[0].displayName}} </h2><ion-note>{{user[0].email}}</ion-note></label> -->
+                    <label *ngIf="user$ | async as user"><h2 >Bienvenido: </h2><h3>{{user.displayName}} </h3><ion-note>{{user.email}}</ion-note></label>
                     <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
                         <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
                             <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>

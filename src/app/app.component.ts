@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from './shared/user.interface';
 
 
@@ -12,11 +12,12 @@ import { User } from './shared/user.interface';
 
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {  
+export class AppComponent implements OnInit {  
   //paginas barra lateral
-  user$: Observable<User>= this.authSvc.afAuth.user;
-  user1$: Observable<User>
+  user$: Observable<User>= this.authSvc.afAuth.user;      
+  user1$: Observable<any>=this.authSvc.user1$;
   public selectedIndex = 0;
+  usersSubscription: Subscription;
   nombreUser:string;
   uid:string;
   public appPages = [
@@ -40,23 +41,22 @@ export class AppComponent {
   
   constructor( 
     private authSvc:AuthService,            
-  ) { }
+    ) { 
+     
 
-  ngOnInit() {
-  
+    }
+
+  ngOnInit(): void{
+
+    // this.user$.subscribe(x=>{
+    //   this.user1$=this.authSvc.getUserById(x.uid);            
+    // });
 
 
-    // const path = window.location.pathname.split('folder/')[1];
-    // if (path !== undefined) {
-    //   this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    // }
-
-    
-    
   }
 
 
-  logout(){
+  logout(): void{     
     console.log('salir')
     this.authSvc.logout();
   } 

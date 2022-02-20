@@ -4,7 +4,7 @@ import { User } from '../shared/user.interface';
 import { Observable,of } from 'rxjs';
 import { NotificacionesService } from './notificaciones.service';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { last, switchMap } from 'rxjs/operators';
 
 // import * as firebase from 'firebase/compat';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
@@ -15,20 +15,23 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class AuthService {
   public user$: Observable<User>;
+  public user1$: Observable<any>;
 
   constructor(public afAuth: AngularFireAuth,
     public notificationServ:NotificacionesService,
     private router:Router,
     private afs: AngularFirestore) {
     this.user$=this.afAuth.authState.pipe(
-      switchMap((user) => {
+      switchMap((user) => {     
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.afs.doc<User>(`users/${user.uid}`).update;
         }
         return of(null);
         
       })
     );
+    
+
      }
 
      async resetPassword(email: string): Promise<void> {
@@ -77,7 +80,7 @@ export class AuthService {
           displayName: name,
         };    
         userRef.set(data, { merge: true });                      
-        return user;
+        return data;
       } catch (error) {
         console.log('Error->', error);
         this.notificationServ.notificacionToasError(error.message);
@@ -86,18 +89,39 @@ export class AuthService {
 
     }
 
-    getUserById(uid: string) :Observable<any>{    
+  async registerComplete(email: string, password: string, name: string, lastname:string): Promise<User> {
+    try {
+      const {user}= await this.afAuth.createUserWithEmailAndPassword(email,password);
+      
+      const data: User = {
+        uid: user.uid,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        displayName: name+" "+lastname
+      };                       
+      user.updateProfile(data);//VALIDO POR SI ACASO QUIERO PONER UNA FOTO DE PERFIL O DEMAS COSAS
+      const nombres=name+" "+lastname
+      this.updateUserData(user,nombres);
+      return user
+    } catch (error) {
+      console.log('Error->', error);
+      this.notificationServ.notificacionToasError(error.message);
+    }       
+  }
+
+    getUserById(uid: string) :Observable<any>{          
       return this.afs.collection("users", ref => ref.where('uid', '==', uid)).valueChanges();
     }
+
+    updateUserAppById(uid: string){          
+      this.user1$= this.afs.collection("users", ref => ref.where('uid', '==', uid)).valueChanges();
+    }
     
-
-
-
   
     async login(email: string, password: string): Promise<User> {
       try {
         const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-        this.updateUserData(user);
+        // this.updateUserData(user);
         return user;
       } catch (error) {
         console.log('Error->', error);
@@ -119,6 +143,7 @@ export class AuthService {
     }
   
     async logout(): Promise<void> {
+      this.user1$=null
       try {
         await this.afAuth.signOut();
       } catch (error) {
@@ -127,14 +152,14 @@ export class AuthService {
       }
     }
   
-    private updateUserData(user: User) {
+    private updateUserData(user: User, nombres:string) {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
   
       const data: User = {
         uid: user.uid,
         email: user.email,
         emailVerified: user.emailVerified,
-        displayName: user.displayName,
+        displayName: nombres
       };
   
       return userRef.set(data, { merge: true });

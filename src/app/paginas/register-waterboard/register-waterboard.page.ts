@@ -8,6 +8,9 @@ import { ApigeodecoderService } from 'src/app/services/apigeodecoder.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { ServWaterboardDbService } from 'src/app/services/serv-waterboard-db.service';
 import { PhotoService } from '../../services/photo.service';
+import { Observable } from 'rxjs';
+import { User } from '../../shared/user.interface';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -19,7 +22,8 @@ export class RegisterWaterboardPage implements OnInit {
   studentForm: FormGroup
   waterboard: WaterBoard = new WaterBoard();
   loading: any;
-  estadoW: boolean = true
+  estadoW: boolean = true;
+  user$: Observable<User>= this.authSvc.afAuth.user;
   constructor(
     public servWaterdb: ServWaterboardDbService,
     public notifi: NotificacionesService,
@@ -29,10 +33,15 @@ export class RegisterWaterboardPage implements OnInit {
     public menucontroler: MenuController,
     private modalController: ModalController,
     private servApiGeoDeco: ApigeodecoderService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authSvc:AuthService
   ) { }
 
   ngOnInit() {
+    this.user$.subscribe(x=>{
+      this.waterboard.registradorName=x.displayName;
+      this.waterboard.registradorUid=x.uid;
+    });
     this.studentForm = this.fb.group({
       nombreEscuela: [''],
       infoStudent: this.fb.array([this.studentInfo()])
